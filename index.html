@@ -679,16 +679,40 @@
             border-radius: 2px;
         }
 
-        /* Copyable elements highlight - global for tooltip wrapper */
+        /* Copyable elements highlight - expanded background without shifting content */
         .ninja-tooltip-wrapper .ninja-copy-highlight {
-            background-color: rgba(255, 255, 255, 0.15) !important;
+            background-color: #333F55 !important;
+            border-radius: 2px !important;
+            /* Tighter shadow spread to avoid overlapping adjacent lines of text */
+            box-shadow: 0 0 0 2px #333F55 !important;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+            z-index: 10;
+            position: relative;
+            cursor: pointer !important;
+        }
+
+        #floating-copy-icon {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            display: none;
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 4px;
             border-radius: 4px;
-            /* Minimalist professional copy cursor */
-            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M4 2L4 16.5L8.1 12.4H13.5L4 2Z' fill='white' stroke='black' stroke-width='1'/%3E%3Cpath d='M11 7H18V14H11V7Z' fill='white' stroke='black' stroke-width='1'/%3E%3Cpath d='M13 9H20V16H13V9Z' fill='white' stroke='black' stroke-width='1'/%3E%3C/svg%3E") 4 2, pointer !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            color: white;
+            line-height: 0;
         }
 
         .ninja-tooltip-wrapper article * {
             transition: background 0.1s;
+        }
+
+        .ninja-tooltip-wrapper .ninja-copy-highlight {
+            transition: none !important;
+            /* Make highlight instant */
         }
 
         .ninja-tooltip-wrapper header h1,
@@ -716,10 +740,9 @@
             width: 100%;
         }
 
-        /* Keep elements shrink-wrapped for highlighting */
-        ._item-body_1tb3h_1 div,
-        ._item-body_1tb3h_1 span {
-            width: fit-content;
+        /* Hide item images in tooltips as requested */
+        .ninja-tooltip-wrapper img {
+            display: none !important;
         }
 
         .ninja-tooltip-wrapper .shadow-xl {
@@ -953,6 +976,14 @@
         </div>
     </header>
 
+    <div id="floating-copy-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+        </svg>
+    </div>
+
     <div class="inventory-wrapper">
         <div class="equipment-grid" id="eq-grid">
             <!-- Slots will be rendered here -->
@@ -1034,21 +1065,41 @@
                     ${item.tooltip}
                 </div>
             `;
+
+            // RECURSIVE TEXT WRAPPER: Makes every piece of text highlightable/copyable
+            const wrapTextNodes = (element) => {
+                const nodes = Array.from(element.childNodes);
+                for (let node of nodes) {
+                    if (node.nodeType === 3 && node.textContent.trim()) {
+                        // Prevent "triple nesting" by skipping wrapping if parent is already a dedicated span
+                        if (element.tagName === 'SPAN' && nodes.length === 1) continue;
+
+                        const span = document.createElement('span');
+                        span.textContent = node.textContent;
+                        node.replaceWith(span);
+                    } else if (node.nodeType === 1 && node.tagName !== 'SCRIPT' && node.tagName !== 'STYLE' && node.tagName !== 'BUTTON') {
+                        wrapTextNodes(node);
+                    }
+                }
+            };
+            wrapTextNodes(tooltipRoot);
+
             tooltipRoot.style.display = 'block';
             tooltipRoot.style.pointerEvents = 'auto';
+
+            const floatingIcon = document.getElementById('floating-copy-icon');
 
             // Hover on tooltip itself keeps it alive
             tooltipRoot.onmouseenter = _cancelHide;
             tooltipRoot.onmouseleave = () => {
-                // Clear highlights when leaving tooltip
                 const highlighted = tooltipRoot.querySelectorAll('.ninja-copy-highlight');
                 highlighted.forEach(el => el.classList.remove('ninja-copy-highlight'));
+                floatingIcon.style.display = 'none';
                 scheduleHide();
             };
 
             // Manage precise highlighting via mousemove
             tooltipRoot.onmousemove = function (e) {
-                // Remove previous highlight
                 const prev = tooltipRoot.querySelector('.ninja-copy-highlight');
                 if (prev) prev.classList.remove('ninja-copy-highlight');
 
@@ -1058,11 +1109,22 @@
                     e.target.tagName === 'ARTICLE' ||
                     e.target.classList.contains('ninja-tooltip-wrapper') ||
                     e.target.classList.contains('_item-body_1tb3h_1')
-                ) return;
+                ) {
+                    floatingIcon.style.display = 'none';
+                    return;
+                }
 
-                // Add highlight if element has text content
                 if (e.target.innerText && e.target.innerText.trim()) {
-                    e.target.classList.add('ninja-copy-highlight');
+                    if (e.target.children.length === 0 || (e.target.tagName === 'SPAN' && e.target.children.length === 1 && e.target.children[0].tagName === 'SPAN')) {
+                        e.target.classList.add('ninja-copy-highlight');
+                        floatingIcon.style.display = 'block';
+                        floatingIcon.style.left = (e.clientX + 12) + 'px';
+                        floatingIcon.style.top = (e.clientY - 18) + 'px';
+                    } else {
+                        floatingIcon.style.display = 'none';
+                    }
+                } else {
+                    floatingIcon.style.display = 'none';
                 }
             };
 
@@ -1077,18 +1139,7 @@
                     e.target.classList.contains('_item-body_1tb3h_1')
                 ) return;
 
-                // Extract text, handling the nested name lines (H1 > Div)
-                let textToCopy = "";
-                if (e.target.tagName === 'H1' && e.target.querySelector('div')) {
-                    // Clicking the H1 but NOT the child div -> copy only H1's direct text (Base Name)
-                    for (let node of e.target.childNodes) {
-                        if (node.nodeType === 3) textToCopy += node.textContent.trim() + " ";
-                    }
-                    textToCopy = textToCopy.trim();
-                } else if (e.target.innerText) {
-                    textToCopy = e.target.innerText.trim();
-                }
-
+                const textToCopy = e.target.innerText.trim();
                 if (textToCopy) {
                     navigator.clipboard.writeText(textToCopy).then(() => {
                         showNotification(`Copied: "${textToCopy}"`);
@@ -1096,7 +1147,6 @@
                 }
             };
 
-            // Position anchored to the card slot element
             positionTooltip(slotEl);
         }
 
