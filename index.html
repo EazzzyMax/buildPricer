@@ -479,77 +479,262 @@
             margin-top: 10px;
         }
 
-        /* Ninja Tooltip Styles */
+        /* ============================================
+           poe.ninja Tooltip CSS Variables + Classes
+           ============================================ */
         #item-tooltip-root {
             position: fixed;
             pointer-events: none;
             z-index: 9999;
             display: none;
-            max-width: 400px;
         }
 
-        .ninja-tooltip-content {
-            background-color: #0c0e12;
-            border: 1px solid #4a5568;
-            border-radius: 4px;
+        /* --- poe.ninja CSS Variables (colours for item types) --- */
+        .ninja-tooltip-wrapper {
+            /* Item rarity colours */
+            --item-unique: 27, 66%, 43%;
+            /* #af6025 - orange */
+            --item-rare: 54, 100%, 53%;
+            /* #ffd700 - yellow */
+            --item-magic: 221, 100%, 72%;
+            /* #8888ff - blue */
+            --item-normal: 0, 0%, 78%;
+            /* #c8c8c8 - white */
+            --item-gem: 159, 100%, 35%;
+            /* #00b300 - green */
+            --item-currency: 36, 63%, 67%;
+            /* #c8a354 - currency */
+            --item-divination: 195, 100%, 54%;
+            /* #0ebaff - light blue */
+            --item-corrupted: 0, 100%, 41%;
+            /* #d20000 - red */
+            --item-implicit: 221, 100%, 72%;
+            /* same as magic */
+            --item-explicit: 221, 100%, 72%;
+            /* same as magic */
+
+            /* Opacity shortcuts */
+            --opacity-100: 1;
+            --opacity-75: 0.75;
+            --opacity-50: 0.50;
+            --opacity-25: 0.25;
+            --opacity-12: 0.12;
+
+            /* Spacing */
+            --s1: 4px;
+            --s2: 8px;
+            --s3: 12px;
+            --s4: 16px;
+            --s6: 24px;
+
+            /* Fonts */
+            --text-xs: 11px;
+            --text-sm: 13px;
+            --text-base: 14px;
+            --text-lg: 18px;
+            --text-xl: 20px;
+            --font-normal: 400;
+            --font-semibold: 600;
+
+            /* Colors */
+            --color-coolgrey-50: #f8fafc;
+            --color-coolgrey-100: #f0f4f8;
+            --color-coolgrey-200: #d9e2ec;
+            --color-coolgrey-300: #bcccdc;
+            --color-coolgrey-400: #9fb3c8;
+            --color-coolgrey-500: #829ab1;
+            --color-coolgrey-700: #486581;
+            --color-coolgrey-800: #334e68;
+            --color-coolgrey-850: #243b53;
+            --color-coolgrey-900: #1f3346;
+            --color-coolgrey-950: #162032;
+            --color-coolgrey-1000: #0d1821;
+
+            /* Rounded */
+            --rounded-sm: 2px;
+        }
+
+        /* --- Core tooltip container --- */
+        .ninja-tooltip-wrapper article {
+            background-color: #0a0c10;
+            /* Matches --bg-base */
+            background-image: linear-gradient(to bottom, #11141a, #0a0c10);
+            color: #9fb3c8;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
-            font-family: inherit;
-        }
-
-        .ninja-tooltip-content header {
-            padding: 8px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid #4a5568;
             text-align: center;
+            border-radius: var(--rounded-sm, 2px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.5);
+            width: max(40ch, 400px);
+            max-width: 480px;
+            font-size: 14px;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-weight: 400;
+            border: 1px solid hsla(var(--item-unique), var(--opacity-50, 0.5));
         }
 
-        .ninja-tooltip-content h1 {
+        /* --- Header with item name --- */
+        .ninja-tooltip-wrapper header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid hsla(var(--item-unique), 0.5);
+            background-color: hsla(var(--item-unique), 0.08);
+            border-radius: 2px 2px 0 0;
+        }
+
+        .ninja-tooltip-wrapper header h1 {
             font-size: 18px;
             font-weight: 600;
             margin: 0;
-            color: #af6025;
-            /* Unique color by default */
+            color: hsla(var(--item-unique), 1);
         }
 
-        .relative.whitespace-pre-wrap {
-            padding: 10px;
-            font-size: 13px;
-            color: #a0aec0;
-            line-height: 1.4;
+        /* --- Item body --- */
+        ._item-body_1tb3h_1 {
+            padding: 8px;
+            border-top: none;
+            border-radius: 0 0 2px 2px;
+            font-size: 14px;
         }
 
-        .property {
-            color: #cbd5e0;
-            margin-bottom: 4px;
+        ._item-body_1tb3h_1 *+* {
+            margin-top: 4px;
         }
 
-        .property span:first-child {
-            color: #718096;
+        /* Horizontal separator between sections */
+        ._item-body_1tb3h_1>section:not(:first-child):not(:empty)::before {
+            content: "";
+            display: block;
+            height: 2px;
+            width: 50%;
+            margin: 8px auto;
+            background-image: linear-gradient(to right,
+                    transparent,
+                    hsla(var(--item-type-colour, var(--item-unique)), 0.5),
+                    transparent);
         }
 
-        .separator {
-            height: 1px;
-            background: #4a5568;
-            margin: 8px 0;
+        ._item-body_1tb3h_1 section>img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
         }
 
-        .description {
+        /* Properties line (Quality, ES, etc) */
+        .ninja-tooltip-wrapper .property {
+            color: #bcccdc;
+            margin-bottom: 2px;
+        }
+
+        .ninja-tooltip-wrapper .property>span:first-child {
+            color: #829ab1;
+        }
+
+        .ninja-tooltip-wrapper .requires {
+            color: #bcccdc;
+        }
+
+        .ninja-tooltip-wrapper .requires:not(:last-child)::after {
+            content: ", ";
+        }
+
+        /* modLine colours */
+        .ninja-tooltip-wrapper .whitespace-pre-line {
+            white-space: pre-line;
+        }
+
+        .ninja-tooltip-wrapper .italic {
             font-style: italic;
-            color: #af6025;
-            margin-top: 8px;
         }
 
-        .mods-enchanted {
-            color: #b4b4ff;
+        /* Utility colour classes matching poe.ninja Tailwind */
+        .ninja-tooltip-wrapper .text-coolgrey-400 {
+            color: #9fb3c8;
         }
 
-        .mods-implicit {
-            color: #b4b4ff;
+        .ninja-tooltip-wrapper .font-semibold {
+            font-weight: 600;
         }
 
-        .mods-explicit {
-            color: #b4b4ff;
+        .ninja-tooltip-wrapper .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .ninja-tooltip-wrapper .my-0 {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .ninja-tooltip-wrapper .overflow-hidden {
+            overflow: hidden;
+        }
+
+        .ninja-tooltip-wrapper .text-center {
+            text-align: center;
+        }
+
+        .ninja-tooltip-wrapper .rounded-sm {
+            border-radius: 2px;
+        }
+
+        .ninja-tooltip-wrapper .shadow-xl {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Pin button style */
+        .ninja-pin-btn {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #829ab1;
+            /* coolgrey-500 */
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: auto;
+            backdrop-filter: blur(4px);
+        }
+
+        .ninja-pin-btn svg {
+            width: 14px;
+            height: 14px;
+            transform: rotate(-45deg);
+            /* Default look */
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ninja-pin-btn:hover {
+            background: rgba(200, 170, 110, 0.2);
+            color: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        .ninja-pin-btn.pinned {
+            background: var(--accent-gold);
+            color: #000;
+            border-color: #fff;
+            box-shadow: 0 0 15px rgba(200, 170, 110, 0.4);
+        }
+
+        .ninja-pin-btn.pinned svg {
+            transform: rotate(0deg);
+            /* Stuck in */
+        }
+
+        /* hide original ninja pin button */
+        .ninja-tooltip-wrapper .absolute.top-0.-right-0,
+        .ninja-tooltip-wrapper [aria-label="Pin tooltip"] {
+            display: none;
         }
 
         .btn {
@@ -761,31 +946,91 @@
 
         const tooltipRoot = document.getElementById('item-tooltip-root');
 
-        function showItemTooltip(e, id) {
+        let isTooltipPinned = false;
+        let _tooltipHideTimer = null;
+
+        const pinIcon = `<svg viewBox="-3 -2.5 24 24" fill="currentColor"><path d="m7.374 12.268l-5.656 5.657A1 1 0 1 1 .303 16.51l5.657-5.656L1.718 6.61A6.992 6.992 0 0 1 7.9 4.67L11.617.954a2 2 0 0 1 2.828 0l2.829 2.828a2 2 0 0 1 0 2.829l-3.716 3.716a6.992 6.992 0 0 1-1.941 6.183l-4.243-4.242z"></path></svg>`;
+
+        window.toggleTooltipPin = function (e) {
+            e.stopPropagation();
+            isTooltipPinned = !isTooltipPinned;
+            const pinBtn = document.querySelector('.ninja-pin-btn');
+            if (pinBtn) {
+                pinBtn.classList.toggle('pinned', isTooltipPinned);
+            }
+        };
+
+        function _cancelHide() {
+            if (_tooltipHideTimer) {
+                clearTimeout(_tooltipHideTimer);
+                _tooltipHideTimer = null;
+            }
+        }
+
+        function showItemTooltip(slotEl, id) {
+            if (isTooltipPinned) return;
+
             const item = items[id];
             if (!item || !item.tooltip) return;
 
-            tooltipRoot.innerHTML = `<div class="ninja-tooltip-content">${item.tooltip}</div>`;
+            _cancelHide();
+
+            tooltipRoot.innerHTML = `
+                <div class="ninja-tooltip-wrapper">
+                    <button class="ninja-pin-btn" onclick="toggleTooltipPin(event)" title="Pin tooltip">
+                        ${pinIcon}
+                    </button>
+                    ${item.tooltip}
+                </div>
+            `;
             tooltipRoot.style.display = 'block';
-            moveItemTooltip(e);
+            tooltipRoot.style.pointerEvents = 'auto';
+
+            // Hover on tooltip itself keeps it alive
+            tooltipRoot.onmouseenter = _cancelHide;
+            tooltipRoot.onmouseleave = scheduleHide;
+
+            // Position anchored to the card slot element
+            positionTooltip(slotEl);
         }
 
-        function moveItemTooltip(e) {
-            if (tooltipRoot.style.display === 'none') return;
+        function positionTooltip(slotEl) {
+            const MARGIN = 5; // gap between card and tooltip
+            const rect = slotEl.getBoundingClientRect();
+            const tw = tooltipRoot.offsetWidth || 480;
+            const th = tooltipRoot.offsetHeight || 400;
 
-            let x = e.clientX + 20;
-            let y = e.clientY + 20;
+            let x, y;
 
-            // Check screen boundaries
-            if (x + 350 > window.innerWidth) x = e.clientX - 370;
-            if (y + 400 > window.innerHeight) y = window.innerHeight - 420;
+            // Try right side first
+            if (rect.right + MARGIN + tw <= window.innerWidth) {
+                x = rect.right + MARGIN;
+            } else {
+                // Fall back to left side
+                x = rect.left - MARGIN - tw;
+            }
+            if (x < 0) x = MARGIN;
+
+            // Align top with card top, clamp to screen
+            y = rect.top;
+            if (y + th > window.innerHeight) y = window.innerHeight - th - MARGIN;
+            if (y < 0) y = MARGIN;
 
             tooltipRoot.style.left = x + 'px';
             tooltipRoot.style.top = y + 'px';
         }
 
+        function scheduleHide() {
+            if (isTooltipPinned) return;
+            _tooltipHideTimer = setTimeout(() => {
+                tooltipRoot.style.display = 'none';
+                tooltipRoot.style.pointerEvents = 'none';
+                _tooltipHideTimer = null;
+            }, 80); // small delay so cursor can cross to the tooltip
+        }
+
         function hideItemTooltip() {
-            tooltipRoot.style.display = 'none';
+            scheduleHide();
         }
 
         function render() {
@@ -808,9 +1053,8 @@
                 slotEl.href = item.link || '#';
                 slotEl.target = '_blank';
                 // Тултипы теперь на самом слоте, чтобы работали сквозь оверлей
-                slotEl.onmouseenter = (e) => showItemTooltip(e, id);
-                slotEl.onmouseleave = () => hideItemTooltip();
-                slotEl.onmousemove = (e) => moveItemTooltip(e);
+                slotEl.onmouseenter = () => showItemTooltip(slotEl, id);
+                slotEl.onmouseleave = () => scheduleHide();
             } else {
                 slotEl.onclick = () => showEdit(id);
             }

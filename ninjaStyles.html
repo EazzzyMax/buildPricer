@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    <title>Builds - trysiki_yukimeww - Path of Exile 1 - poe.ninja</title>
+    <meta name="description" content="trysiki_yukimeww, level 94 Assassin in the Mirage league." />
+    <link rel="canonical" href="http://localhost:10000/poe1/builds/mirage/character/Hatred-4249/trysiki_yukimeww" />
+    <meta property="og:title" content="Builds - trysiki_yukimeww - Path of Exile 1 - poe.ninja" />
+    <meta property="og:description" content="trysiki_yukimeww, level 94 Assassin in the Mirage league." />
+    <meta property="og:url"
+        content="http://localhost:10000/poe1/builds/mirage/character/Hatred-4249/trysiki_yukimeww" />
+    <meta property="og:image" content="https://assets.poe.ninja/poe1/classes/assassin.webp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="poe.ninja" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Builds - trysiki_yukimeww - Path of Exile 1 - poe.ninja" />
+    <meta name="twitter:description" content="trysiki_yukimeww, level 94 Assassin in the Mirage league." />
+    <meta name="twitter:image" content="https://assets.poe.ninja/poe1/classes/assassin.webp" />
+    <meta name="twitter:domain" content="poe.ninja" />
+    <meta name="twitter:url"
+        content="http://localhost:10000/poe1/builds/mirage/character/Hatred-4249/trysiki_yukimeww" />
+    <!-- META -->
+    <style>
+        :root {
+            --background: hsla(204, 25%, 3%);
+            --background-image: url(/poe1-assets/images/bg2.jpg);
+        }
+
+        body {
+            background: linear-gradient(transparent 100vh, var(--background) 150vh, hsl(204, 24%, 5%)), var(--background);
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150%;
+            z-index: -1;
+            background-image: linear-gradient(177deg, transparent 30vh, var(--background) 150vh), var(--background-image);
+            background-repeat: no-repeat;
+            background-size: cover;
+            will-change: transform;
+        }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KP9BFRZBHE"></script>
+    <script>
+        (function () {
+            const contentGroup = "poe1/Build Character";
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                window.dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "G-KP9BFRZBHE", {
+                content_group: contentGroup,
+            });
+        }
+        )();
+    </script>
+    <script data-cfasync="false">
+        (function () {
+            const disabledUnits = [];
+
+            function loadScript(src) {
+                const script = document.createElement("script");
+                script.src = src;
+                script.async = true;
+                document.head.appendChild(script);
+            }
+
+            window.ramp = window.ramp || {};
+            window.ramp.que = window.ramp.que || [];
+            window.ramp.passiveMode = true;
+
+            if (disabledUnits && disabledUnits.length > 0) {
+                window.ramp.forceUnits = disabledUnits.map(unit => ({
+                    unit,
+                    force: 'off'
+                }));
+            }
+
+            const getAdLayout = () => {
+                const width = window.innerWidth;
+                const units = [{
+                    type: "bottom_rail"
+                }, {
+                    type: "corner_ad_video"
+                }, {
+                    type: "sticky_sidebar"
+                },];
+
+                let key;
+
+                if (width <= 768) {
+                    key = "mobile";
+                    units.push({
+                        selectorId: "leaderboard-top",
+                        type: "med_rect_atf"
+                    });
+                    units.push({
+                        selectorId: "leaderboard-bottom",
+                        type: "med_rect_btf"
+                    });
+                } else {
+                    key = "desktop";
+                    units.push({
+                        selectorId: "leaderboard-top",
+                        type: "leaderboard_atf"
+                    });
+                    units.push({
+                        selectorId: "leaderboard-bottom",
+                        type: "leaderboard_btf"
+                    });
+                }
+
+                if (width >= 1536) {
+                    key = "desktop-rails";
+                    units.push({
+                        selectorId: "skyscraper-left",
+                        type: "left_rail"
+                    });
+                    units.push({
+                        selectorId: "skyscraper-right",
+                        type: "right_rail"
+                    });
+                }
+
+                return {
+                    key,
+                    units
+                };
+            }
+                ;
+
+            let currentLayout = getAdLayout();
+
+            const debounce = (callback, wait) => {
+                let timeoutId = null;
+                return () => {
+                    window.clearTimeout(timeoutId);
+                    timeoutId = window.setTimeout(callback, wait);
+                }
+                    ;
+            }
+                ;
+
+            window.addEventListener("resize", debounce(() => {
+                const layout = getAdLayout();
+                if (layout.key !== currentLayout.key) {
+                    currentLayout = layout;
+                    window.ramp.destroyUnits("all").then(() => {
+                        window.ramp.addUnits(layout.units).then(() => {
+                            window.ramp.displayUnits();
+                        }
+                        ).catch((e) => {
+                            window.ramp.displayUnits();
+                            console.log(e);
+                        }
+                        );
+                    }
+                    );
+                }
+            }
+                , 500));
+
+            const init = () => {
+                window.ramp.addUnits(currentLayout.units).then(() => {
+                    window.ramp.displayUnits();
+                }
+                ).catch((e) => {
+                    window.ramp.displayUnits();
+                    console.log(e);
+                }
+                );
+            }
+                ;
+
+            window.ramp.que.push(init);
+
+            if (!/^(.*;)?\s*ninja-patreon\s*=\s*[^;]/.test(document.cookie)) {
+                loadScript("//cdn.intergient.com/1025368/75182/ramp.js");
+            }
+        }
+        )();
+    </script>
+    <link rel="stylesheet" href="https://assets.poe.ninja/_astro/seo.D3_wYIC3.css">
+    <link rel="stylesheet" href="https://assets.poe.ninja/_astro/SiteFooter.CJ4wF6O-.css">
+    <style>
+        ._search-list_1pgh4_1 {
+            position: absolute;
+            z-index: 1300;
+            display: block;
+            max-height: 50vh;
+            width: 100%;
+            overflow: auto;
+            background-color: var(--color-coolgrey-850);
+            border: 1px solid var(--color-coolgrey-800);
+            border-radius: var(--rounded)
+        }
+
+        ._link_1o51l_1 {
+            display: grid;
+            grid: 1fr/auto 1fr;
+            gap: var(--s2);
+            align-items: center;
+            justify-content: flex-start;
+            min-height: var(--space-min_tap_size);
+            padding: 0 var(--s4);
+            color: var(--color-coolgrey-100);
+            position: relative
+        }
+
+        ._link_1o51l_1:hover {
+            text-decoration: none
+        }
+
+        ._link_1o51l_1:hover:not(._active_1o51l_15) {
+            background-color: var(--color-coolgrey-700)
+        }
+
+        ._active-link_1o51l_19 {
+            --active-background: var(--color-coolgrey-900);
+            background-color: var(--active-background);
+            color: var(--color-emerald-500)
+        }
+
+        ._active-link_1o51l_19:before {
+            content: "";
+            position: absolute;
+            top: -40px;
+            right: 0;
+            height: 40px;
+            width: 40px;
+            border-bottom-right-radius: var(--rounded-lg);
+            pointer-events: none;
+            box-shadow: 0 20px 0 0 var(--active-background);
+            z-index: -1
+        }
+
+        ._active-link_1o51l_19:not(:last-child):after {
+            content: "";
+            position: absolute;
+            bottom: -40px;
+            right: 0;
+            height: 40px;
+            width: 40px;
+            border-top-right-radius: var(--rounded-lg);
+            pointer-events: none;
+            box-shadow: 0 -20px 0 0 var(--active-background);
+            z-index: -1
+        }
+
+        ._item_51a3u_1 {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            color: var(--color-coolgrey-300)
+        }
+
+        ._item_51a3u_1~._item_51a3u_1:before {
+            content: ">";
+            padding-left: .5rem;
+            padding-right: .5rem;
+            color: var(--color-coolgrey-300)
+        }
+    </style>
+    <link rel="stylesheet" href="https://assets.poe.ninja/_astro/SearchPageLayout.D2c5EW_o.css">
+    <style>
+        ._item-border_1rsc3_1:not(:last-child) {
+            padding-bottom: var(--s6);
+            margin-bottom: var(--s6);
+            border-bottom: 1px solid var(--color-coolgrey-800)
+        }
+
+        ._item-image_1rsc3_7 {
+            margin-right: var(--s2);
+            flex: 0 1 10%;
+            display: flex;
+            justify-content: center
+        }
+
+        ._item-image_1rsc3_7:hover>img {
+            filter: drop-shadow(0 0 .25rem var(--color-coolgrey-1000))
+        }
+
+        ._item-skills_1rsc3_17 {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: masonry;
+            gap: var(--s2);
+            align-items: start;
+            width: 100%
+        }
+
+        @media(min-width: 768px) {
+            ._item-skills_1rsc3_17 {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        @media(min-width: 1024px) {
+            ._item-skills_1rsc3_17 {
+                grid-template-columns: 1fr 1fr 1fr
+            }
+        }
+
+        ._equipment_q0jou_1 {
+            --cellSize: var(--s12);
+            display: grid;
+            grid-template-areas: "WTab    WTab   .      .          .          .       OTab OTab" "Weapon  Weapon .      Helm       Helm       .       Offhand Offhand" "Weapon  Weapon .      Helm       Helm       .       Offhand Offhand" "Weapon  Weapon Ring3  BodyArmour BodyArmour Amulet  Offhand Offhand" "Weapon  Weapon Ring   BodyArmour BodyArmour Ring2   Offhand Offhand" ".       Gloves Gloves BodyArmour BodyArmour Boots   Boots   ." ".       Gloves Gloves Belt       Belt       Boots   Boots   ." "Trinket LifeFlask Charms Charms     Charms     Charms  ManaFlask  ." ".       LifeFlask Charms Charms     Charms     Charms  ManaFlask  .";
+            gap: var(--s2);
+            justify-content: center
+        }
+
+        @media(min-width: 640px) {
+            ._equipment_q0jou_1 {
+                --cellSize: var(--s16)
+            }
+        }
+
+        @media(min-width: 768px) {
+            ._equipment_q0jou_1 {
+                --cellSize: var(--s14)
+            }
+        }
+
+        @media(min-width: 1024px) {
+            ._equipment_q0jou_1 {
+                --cellSize: var(--s16)
+            }
+        }
+
+        ._equipment_q0jou_1 {
+            grid-template-columns: repeat(8, var(--cellSize));
+            grid-template-rows: var(--s12) repeat(8, var(--cellSize))
+        }
+
+        ._item-border_8hsos_1:not(:last-child) {
+            padding-bottom: var(--s6);
+            margin-bottom: var(--s6);
+            border-bottom: 1px solid var(--color-coolgrey-800)
+        }
+
+        ._item-image_8hsos_7 {
+            margin-right: var(--s2);
+            flex: 0 1 10%;
+            display: flex;
+            justify-content: center
+        }
+
+        ._item-image_8hsos_7:hover>img {
+            filter: drop-shadow(0 0 .25rem var(--color-coolgrey-950))
+        }
+
+        ._item-skills_8hsos_17 {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: masonry;
+            gap: var(--s2);
+            align-items: start;
+            width: 100%
+        }
+
+        @media(min-width: 768px) {
+            ._item-skills_8hsos_17 {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        @media(min-width: 1024px) {
+            ._item-skills_8hsos_17 {
+                grid-template-columns: 1fr 1fr 1fr
+            }
+        }
+
+        ._equipment_1wy7u_1 {
+            --cellSize: var(--s12)
+        }
+
+        @media(min-width: 640px) {
+            ._equipment_1wy7u_1 {
+                --cellSize: var(--s16)
+            }
+        }
+
+        @media(min-width: 768px) {
+            ._equipment_1wy7u_1 {
+                --cellSize: var(--s14)
+            }
+        }
+
+        @media(min-width: 1024px) {
+            ._equipment_1wy7u_1 {
+                --cellSize: var(--s16)
+            }
+        }
+
+        ._equipment_1wy7u_1 {
+            display: grid;
+            grid-template-columns: repeat(8, var(--cellSize));
+            grid-template-rows: var(--s12) repeat(8, var(--cellSize));
+            grid-template-areas: "WTab    WTab    .      .          .          .       OTab    OTab" "Weapon  Weapon  .      Helm       Helm       .       Offhand Offhand" "Weapon  Weapon  .      Helm       Helm       .       Offhand Offhand" "Weapon  Weapon  Ring3  BodyArmour BodyArmour Amulet  Offhand Offhand" "Weapon  Weapon  Ring   BodyArmour BodyArmour Ring2   Offhand Offhand" ".       Gloves  Gloves BodyArmour BodyArmour Boots   Boots   ." ".       Gloves  Gloves Belt       Belt       Boots   Boots   ." "Trinket Flasks  Flasks Flasks     Flasks     Flasks  Flasks  ." ".       Flasks  Flasks Flasks     Flasks     Flasks  Flasks  .";
+            gap: var(--s2);
+            justify-content: center
+        }
+
+        .uniqueitem {
+            color: hsla(var(--item-unique))
+        }
+
+        .currencyitem {
+            color: hsla(var(--item-currency))
+        }
+
+        .corrupted {
+            color: hsla(var(--item-corrupted))
+        }
+
+        .divination {
+            color: #0ebaff
+        }
+
+        .gemitem {
+            color: hsla(var(--item-gem))
+        }
+
+        .default {
+            color: #7f7f7f
+        }
+
+        .magicitem {
+            color: hsla(var(--item-magic))
+        }
+
+        .whiteitem {
+            color: #c8c8c8
+        }
+
+        .rareitem {
+            color: hsla(var(--item-rare))
+        }
+
+        .normal {
+            color: var(--color-coolgrey-50)
+        }
+
+        .requires:not(:last-child):after {
+            content: ", "
+        }
+
+        ._item-body_1tb3h_1 {
+            padding: var(--s2);
+            border-top: none;
+            border-radius: 0 0 var(--rounded-sm) var(--rounded-sm);
+            font-size: var(--text-base)
+        }
+
+        ._item-body_1tb3h_1:empty {
+            display: none
+        }
+
+        ._item-body_1tb3h_1 *+* {
+            margin-top: var(--s1)
+        }
+
+        ._item-body_1tb3h_1>:not(:first-child):not(:empty):before {
+            content: "";
+            display: block;
+            height: 2px;
+            width: 50%;
+            margin: var(--s2) auto;
+            background-image: linear-gradient(to right, transparent, hsla(var(--item-type-colour), var(--opacity-50)), transparent)
+        }
+
+        ._item-body_1tb3h_1>:empty+:not(:empty):before {
+            display: none
+        }
+
+        ._item-body_1tb3h_1>:not(:empty)~:empty+:not(:empty):before {
+            content: "";
+            display: block;
+            height: 2px;
+            width: 50%;
+            margin: var(--s2) auto;
+            background-image: linear-gradient(to right, transparent, hsla(var(--item-type-colour), var(--opacity-50)), transparent)
+        }
+
+        ._item-body_1tb3h_1>:empty {
+            display: none
+        }
+
+        @keyframes _shrink_n87z9_1 {
+            0% {
+                transform: scaleX(1)
+            }
+
+            to {
+                transform: scaleX(0)
+            }
+        }
+
+        ._progressBar_n87z9_10 {
+            animation: _shrink_n87z9_1 var(--duration) linear forwards;
+            opacity: .6
+        }
+
+        ._layout-cluster_hedo7_1>* {
+            flex: var(--flex-value)
+        }
+
+        .header {
+            padding: var(--s3) var(--s6);
+            box-shadow: 0 3px 5px 1px #00000080;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .header2 {
+            height: var(--s6);
+            box-shadow: 0 3px 5px 1px #00000080
+        }
+
+        .dropdown {
+            --height: 3rem;
+            --select-font-size: var(--text-base);
+            --label-font-size: var(--text-xs);
+            height: var(--height);
+            position: relative;
+            border: 1px solid hsla(var(--coolgrey-950), var(--opacity-75));
+            border-radius: var(--rounded-sm);
+            display: block;
+            overflow: hidden
+        }
+
+        .dropdown[data-size=small] {
+            --height: 2rem;
+            --select-font-size: var(--text-sm);
+            --label-font-size: var(--text-xs)
+        }
+
+        .dropdown[data-size=large] {
+            --height: 4rem;
+            --select-font-size: var(--text-lg);
+            --label-font-size: var(--text-sm)
+        }
+
+        .dropdown>select {
+            appearance: none;
+            border: none;
+            min-width: 100%;
+            min-height: 100%;
+            max-width: 100%;
+            font-size: var(--select-font-size);
+            font-weight: var(--font-weight-normal);
+            line-height: var(--leading-tight);
+            display: flex;
+            align-items: flex-start;
+            padding-top: calc(var(--height) * .5);
+            padding-left: var(--s4);
+            padding-right: var(--s8);
+            color: var(--color-coolgrey-50);
+            background-color: hsla(var(--coolgrey-850), var(--opacity-75));
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-size: 1.5em auto, 100%;
+            background-repeat: no-repeat, repeat;
+            background-position: right .2em top 50%, 0 0
+        }
+
+        .dropdown>select[data-variant=hidden-label] {
+            display: initial;
+            padding-top: 0;
+            align-items: center;
+            padding-left: var(--s2);
+            padding-right: var(--s2)
+        }
+
+        .dropdown>.label {
+            position: absolute;
+            z-index: 2;
+            font-size: var(--label-font-size);
+            line-height: var(--leading-tight);
+            left: var(--s4);
+            bottom: 50%;
+            padding-bottom: var(--s1);
+            color: hsla(var(--coolgrey-50), var(--opacity-75));
+            pointer-events: none;
+            white-space: nowrap
+        }
+
+        .dropdown .variantHiddenLabel {
+            display: initial;
+            padding-top: 0;
+            align-items: center;
+            padding-left: var(--space-2);
+            padding-right: var(--space-2)
+        }
+
+        .button {
+            display: inline-grid;
+            grid-auto-flow: column;
+            align-items: center;
+            justify-content: center;
+            gap: .5em;
+            font-weight: var(--font-weight-medium);
+            border-radius: var(--rounded-sm);
+            text-decoration: none;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+            transition: all .05s
+        }
+
+        .button[data-full-width=true] {
+            width: 100%
+        }
+
+        .button[data-variant=plain] {
+            border-radius: .2rem;
+            font-weight: inherit;
+            line-height: inherit
+        }
+
+        .button[data-variant=floating] {
+            color: hsla(var(--emerald-950));
+            background-color: hsla(var(--emerald-500), var(--opacity-100));
+            border-radius: var(--rounded-full)
+        }
+
+        .button[data-variant=text] {
+            font-weight: var(--font-weight-normal);
+            text-transform: uppercase;
+            color: hsla(var(--coolgrey-100), var(--opacity-95));
+            background-color: hsla(var(--coolgrey-850), var(--opacity-95))
+        }
+
+        .button[data-variant=text]:hover {
+            color: hsla(var(--coolgrey-100), var(--opacity-95));
+            background-color: hsla(var(--coolgrey-800), var(--opacity-95))
+        }
+
+        .button[data-variant=outlined] {
+            color: hsla(var(--emerald-500));
+            border: 1px solid hsla(var(--emerald-500))
+        }
+
+        .button[data-variant=outlined]:hover {
+            color: hsla(var(--emerald-950));
+            background-color: hsla(var(--emerald-500))
+        }
+
+        .button[data-variant=danger] {
+            color: hsla(var(--red-500));
+            border: 1px solid hsla(var(--red-500))
+        }
+
+        .button[data-variant=danger]:hover {
+            color: hsla(var(--red-900));
+            background-color: hsla(var(--red-500))
+        }
+
+        .button[data-variant=solid] {
+            color: hsla(var(--emerald-950));
+            background-color: hsla(var(--emerald-500));
+            transition: none;
+            position: relative
+        }
+
+        .button[data-variant=round] {
+            color: hsla(var(--emerald-500));
+            background-color: var(--color-coolgrey-800);
+            padding-left: 1em !important;
+            padding-right: 1em !important;
+            border-radius: var(--rounded-full)
+        }
+
+        .button[data-variant=round]:hover {
+            color: var(--color-coolgrey-800);
+            background-color: hsla(var(--emerald-500))
+        }
+
+        .button[data-size=xsmall] {
+            font-size: var(--text-xs);
+            padding: 0 .5em;
+            height: var(--s6);
+            gap: .25em
+        }
+
+        .button[data-size=small] {
+            font-size: var(--text-sm);
+            padding: 0 .75em;
+            height: 2.5rem
+        }
+
+        .button[data-size=base] {
+            font-size: var(--text-base);
+            padding: 0 .75em;
+            height: 3rem
+        }
+
+        .button[data-size=large] {
+            font-size: var(--text-lg);
+            padding: 0 .75em;
+            height: 4rem
+        }
+
+        .button:disabled {
+            color: hsla(var(--coolgrey-400));
+            background-color: hsla(var(--coolgrey-800));
+            cursor: not-allowed;
+            pointer-events: none
+        }
+
+        .button[data-variant=gradient] {
+            position: relative;
+            background: transparent;
+            z-index: 1;
+            text-decoration: none;
+            border-radius: var(--rounded-sm)
+        }
+
+        .button[data-variant=gradient]:hover {
+            color: #000
+        }
+
+        .button[data-variant=gradient]:before,
+        .button[data-variant=gradient]:after {
+            content: " ";
+            position: absolute
+        }
+
+        .button[data-variant=gradient]:before {
+            inset: 0;
+            z-index: -2;
+            border-radius: var(--rounded-sm);
+            background: #503b9a;
+            background: linear-gradient(45deg, red, #ff4000, #ff5e00, #ff7300, #ff8c00 44%, #ff9d00 56%, #ffb300, #ffc300, #ffd900, #ffea00)
+        }
+
+        .button[data-variant=gradient]:after {
+            inset: 2px;
+            background-color: var(--color-coolgrey-850);
+            border-radius: calc(var(--rounded-sm) - 2px);
+            z-index: -1;
+            opacity: 1;
+            transition: all .2s ease-in-out
+        }
+
+        .button[data-variant=gradient]:hover:after {
+            opacity: 0
+        }
+
+        .data-table {
+            --border: 1px solid hsla(var(--coolgrey-800), var(--opacity-90));
+            width: 100%
+        }
+
+        .data-table colgroup:not(:first-of-type) {
+            border-left: var(--border)
+        }
+
+        .data-table th {
+            font-weight: var(--font-medium);
+            white-space: nowrap
+        }
+
+        .data-table th :not(:first-of-type) {
+            width: 1%
+        }
+
+        .data-table tr {
+            border-bottom: var(--border)
+        }
+
+        .data-table td,
+        .data-table th {
+            padding: 0 var(--s4);
+            height: var(--s12)
+        }
+
+        .data-table td:first-child,
+        .data-table th:first-child {
+            padding-left: 0
+        }
+
+        .data-table td:last-child,
+        .data-table th:last-child {
+            padding-right: 0
+        }
+
+        .data-table tbody tr:hover {
+            background-color: var(--color-coolgrey-850)
+        }
+
+        .data-table .sorted {
+            background-color: var(--color-coolgrey-850);
+            font-weight: var(--font-medium)
+        }
+
+        .data-table .sortable {
+            position: relative;
+            cursor: pointer;
+            user-select: none
+        }
+
+        .data-table .sortable.arrow:after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            width: 100%
+        }
+
+        .data-table .sortable.arrow.sorted-asc:after {
+            top: var(--s2);
+            border-top: 2px solid hsla(var(--emerald-500))
+        }
+
+        .data-table .sortable.arrow.sorted-desc:after {
+            bottom: var(--s2);
+            border-bottom: 2px solid hsla(var(--emerald-500))
+        }
+
+        .link {
+            display: inline-grid;
+            grid-auto-flow: column;
+            align-items: center;
+            gap: .25em;
+            color: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            font-weight: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            user-select: none
+        }
+
+        .link:hover {
+            text-decoration: underline
+        }
+
+        .loader {
+            height: var(--s16);
+            min-width: var(--s32);
+            max-width: var(--s32);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 0 15px #287ec6;
+            border: 1px solid #555;
+            background-color: #32323280;
+            white-space: nowrap;
+            padding: 0 var(--s4);
+            border-radius: var(--rounded)
+        }
+
+        .loader:before,
+        .loader:after,
+        .loader span {
+            position: absolute;
+            content: "";
+            height: 100%;
+            width: 100%;
+            top: 0%;
+            left: 0%;
+            box-shadow: 0 0 15px #287ec6, inset 0 0 15px #287ec6;
+            animation: glow-grow 2s ease-out infinite;
+            border-radius: 1rem;
+            opacity: 0
+        }
+
+        div.loader:after {
+            animation-delay: .66s
+        }
+
+        div.loader span {
+            animation-delay: 1.33s
+        }
+
+        @keyframes glow-grow {
+            0% {
+                opacity: 0;
+                transform: scale(1)
+            }
+
+            80% {
+                opacity: 1
+            }
+
+            to {
+                transform: scale(2);
+                opacity: 0
+            }
+        }
+
+        .layout-stack {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start
+        }
+
+        .layout-stack.split-after-2>:nth-child(2) {
+            margin-bottom: auto
+        }
+
+        .layout-stack.split-after-2:last-child {
+            height: 100%
+        }
+
+        ._text_11d3e_1[data-variant=important],
+        ._text_11d3e_1[data-variant=bold] {
+            font-weight: var(--font-weight-bold)
+        }
+
+        ._text_11d3e_1[data-variant=relevant] {
+            background-color: hsla(var(--yellow-700), var(--opacity-100))
+        }
+
+        ._text_11d3e_1[data-variant=small] {
+            font-size: .8em;
+            font-style: italic
+        }
+
+        ._text_11d3e_1[data-variant=code] {
+            font-style: var(--font-mono)
+        }
+
+        ._text_11d3e_1[data-variant=subdued] {
+            color: hsla(var(--coolgrey-300), var(--opacity-100))
+        }
+
+        ._text_11d3e_1[data-scale="10_caption"] {
+            font-size: var(--text-xs)
+        }
+
+        ._text_11d3e_1[data-scale="20_body-small"] {
+            font-size: var(--text-sm)
+        }
+
+        ._text_11d3e_1[data-scale="30_body-base"] {
+            font-size: var(--text-base)
+        }
+
+        ._text_11d3e_1[data-scale="40_subheading"] {
+            font-size: var(--text-sm);
+            line-height: var(--leading-tight);
+            font-weight: var(--font-weight-medium);
+            letter-spacing: var(--tracking-wider);
+            text-transform: uppercase
+        }
+
+        ._text_11d3e_1[data-scale="50_heading-small"] {
+            font-size: var(--text-base);
+            font-weight: var(--font-weight-medium);
+            line-height: var(--leading-tight)
+        }
+
+        ._text_11d3e_1[data-scale="60_heading-base"] {
+            font-size: var(--text-lg);
+            font-weight: var(--font-weight-medium);
+            line-height: var(--leading-tight);
+            letter-spacing: var(--tracking-wide)
+        }
+
+        ._text_11d3e_1[data-scale="70"] {
+            font-size: var(--text-xl);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: var(--tracking-wide);
+            line-height: var(--leading-tight)
+        }
+
+        ._text_11d3e_1[data-scale="80"] {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-weight-semibold);
+            line-height: var(--leading-tight)
+        }
+
+        ._text_11d3e_1[data-scale="90"] {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-weight-bold);
+            line-height: var(--leading-tight)
+        }
+
+        ._text_11d3e_1[data-scale="100"] {
+            font-size: var(--text-5xl);
+            font-weight: var(--font-weight-bold);
+            line-height: var(--leading-tight)
+        }
+    </style>
+</head>
+
+<body class="grid">
+    <header role="banner" id="header">
+        <style>
+            astro-island,
+            astro-slot,
+            astro-static-slot {
+                display: contents
+            }
+        </style>
+        <script>
+            (() => {
+                var e = async t => {
+                    await (await t())()
+                }
+                    ;
+                (self.Astro || (self.Astro = {})).only = e;
+                window.dispatchEvent(new Event("astro:only"));
+            }
+            )();
+        </script>
+        <script>
+            (() => {
+                var A = Object.defineProperty;
+                var g = (i, o, a) => o in i ? A(i, o, {
+                    enumerable: !0,
+                    configurable: !0,
+                    writable: !0,
+                    value: a
+                }) : i[o] = a;
+                var d = (i, o, a) => g(i, typeof o != "symbol" ? o + "" : o, a);
+                {
+                    let i = {
+                        0: t => m(t),
+                        1: t => a(t),
+                        2: t => new RegExp(t),
+                        3: t => new Date(t),
+                        4: t => new Map(a(t)),
+                        5: t => new Set(a(t)),
+                        6: t => BigInt(t),
+                        7: t => new URL(t),
+                        8: t => new Uint8Array(t),
+                        9: t => new Uint16Array(t),
+                        10: t => new Uint32Array(t),
+                        11: t => Number.POSITIVE_INFINITY * t
+                    }
+                        , o = t => {
+                            let [l, e] = t;
+                            return l in i ? i[l](e) : void 0
+                        }
+                        , a = t => t.map(o)
+                        , m = t => typeof t != "object" || t === null ? t : Object.fromEntries(Object.entries(t).map(([l, e]) => [l, o(e)]));
+                    class y extends HTMLElement {
+                        constructor() {
+                            super(...arguments);
+                            d(this, "Component");
+                            d(this, "hydrator");
+                            d(this, "hydrate", async () => {
+                                var b;
+                                if (!this.hydrator || !this.isConnected)
+                                    return;
+                                let e = (b = this.parentElement) == null ? void 0 : b.closest("astro-island[ssr]");
+                                if (e) {
+                                    e.addEventListener("astro:hydrate", this.hydrate, {
+                                        once: !0
+                                    });
+                                    return
+                                }
+                                let c = this.querySelectorAll("astro-slot")
+                                    , n = {}
+                                    , h = this.querySelectorAll("template[data-astro-template]");
+                                for (let r of h) {
+                                    let s = r.closest(this.tagName);
+                                    s != null && s.isSameNode(this) && (n[r.getAttribute("data-astro-template") || "default"] = r.innerHTML,
+                                        r.remove())
+                                }
+                                for (let r of c) {
+                                    let s = r.closest(this.tagName);
+                                    s != null && s.isSameNode(this) && (n[r.getAttribute("name") || "default"] = r.innerHTML)
+                                }
+                                let p;
+                                try {
+                                    p = this.hasAttribute("props") ? m(JSON.parse(this.getAttribute("props"))) : {}
+                                } catch (r) {
+                                    let s = this.getAttribute("component-url") || "<unknown>"
+                                        , v = this.getAttribute("component-export");
+                                    throw v && (s += ` (export ${v})`),
+                                    console.error(`[hydrate] Error parsing props for component ${s}`, this.getAttribute("props"), r),
+                                    r
+                                }
+                                let u;
+                                await this.hydrator(this)(this.Component, p, n, {
+                                    client: this.getAttribute("client")
+                                }),
+                                    this.removeAttribute("ssr"),
+                                    this.dispatchEvent(new CustomEvent("astro:hydrate"))
+                            }
+                            );
+                            d(this, "unmount", () => {
+                                this.isConnected || this.dispatchEvent(new CustomEvent("astro:unmount"))
+                            }
+                            )
+                        }
+                        disconnectedCallback() {
+                            document.removeEventListener("astro:after-swap", this.unmount),
+                                document.addEventListener("astro:after-swap", this.unmount, {
+                                    once: !0
+                                })
+                        }
+                        connectedCallback() {
+                            if (!this.hasAttribute("await-children") || document.readyState === "interactive" || document.readyState === "complete")
+                                this.childrenConnectedCallback();
+                            else {
+                                let e = () => {
+                                    document.removeEventListener("DOMContentLoaded", e),
+                                        c.disconnect(),
+                                        this.childrenConnectedCallback()
+                                }
+                                    , c = new MutationObserver(() => {
+                                        var n;
+                                        ((n = this.lastChild) == null ? void 0 : n.nodeType) === Node.COMMENT_NODE && this.lastChild.nodeValue === "astro:end" && (this.lastChild.remove(),
+                                            e())
+                                    }
+                                    );
+                                c.observe(this, {
+                                    childList: !0
+                                }),
+                                    document.addEventListener("DOMContentLoaded", e)
+                            }
+                        }
+                        async childrenConnectedCallback() {
+                            let e = this.getAttribute("before-hydration-url");
+                            e && await import(e),
+                                this.start()
+                        }
+                        async start() {
+                            let e = JSON.parse(this.getAttribute("opts"))
+                                , c = this.getAttribute("client");
+                            if (Astro[c] === void 0) {
+                                window.addEventListener(`astro:${c}`, () => this.start(), {
+                                    once: !0
+                                });
+                                return
+                            }
+                            try {
+                                await Astro[c](async () => {
+                                    let n = this.getAttribute("renderer-url")
+                                        , [h, { default: p }] = await Promise.all([import(this.getAttribute("component-url")), n ? import(n) : () => () => { }
+                                        ])
+                                        , u = this.getAttribute("component-export") || "default";
+                                    if (!u.includes("."))
+                                        this.Component = h[u];
+                                    else {
+                                        this.Component = h;
+                                        for (let f of u.split("."))
+                                            this.Component = this.Component[f]
+                                    }
+                                    return this.hydrator = p,
+                                        this.hydrate
+                                }
+                                    , e, this)
+                            } catch (n) {
+                                console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`, n)
+                            }
+                        }
+                        attributeChangedCallback() {
+                            this.hydrate()
+                        }
+                    }
+                    d(y, "observedAttributes", ["props"]),
+                        customElements.get("astro-island") || customElements.define("astro-island", y)
+                }
+            }
+            )();
+        </script>
+        <astro-island uid="Z12mDwN" component-url="https://assets.poe.ninja/_astro/TopBar.DqLpo6R-.js"
+            component-export="TopBar" renderer-url="https://assets.poe.ninja/_astro/client.BhPZdTnF.js"
+            props="{&quot;switchGameLink&quot;:[0,&quot;/poe2/builds&quot;],&quot;gameContext&quot;:[0,&quot;poe1&quot;],&quot;mode&quot;:[0,&quot;builds&quot;],&quot;poe1IndexState&quot;:[0,{&quot;economyLeagues&quot;:[1,[[0,{&quot;name&quot;:[0,&quot;Mirage&quot;],&quot;url&quot;:[0,&quot;mirage&quot;],&quot;displayName&quot;:[0,&quot;Mirage&quot;]}],[0,{&quot;name&quot;:[0,&quot;Hardcore Mirage&quot;],&quot;url&quot;:[0,&quot;miragehc&quot;],&quot;displayName&quot;:[0,&quot;Hardcore Mirage&quot;]}],[0,{&quot;name&quot;:[0,&quot;Standard&quot;],&quot;url&quot;:[0,&quot;standard&quot;],&quot;displayName&quot;:[0,&quot;Standard&quot;]}],[0,{&quot;name&quot;:[0,&quot;Hardcore&quot;],&quot;url&quot;:[0,&quot;hardcore&quot;],&quot;displayName&quot;:[0,&quot;Hardcore&quot;]}]]],&quot;oldEconomyLeagues&quot;:[1,[[0,{&quot;name&quot;:[0,&quot;Phrecia 2.0&quot;],&quot;url&quot;:[0,&quot;phrecia2.0&quot;],&quot;displayName&quot;:[0,&quot;Phrecia 2.0&quot;]}],[0,{&quot;name&quot;:[0,&quot;Keepers&quot;],&quot;url&quot;:[0,&quot;keepers&quot;],&quot;displayName&quot;:[0,&quot;Keepers&quot;]}],[0,{&quot;name&quot;:[0,&quot;Mercenaries&quot;],&quot;url&quot;:[0,&quot;mercenaries&quot;],&quot;displayName&quot;:[0,&quot;Mercenaries&quot;]}],[0,{&quot;name&quot;:[0,&quot;Hardcore Phrecia 2.0&quot;],&quot;url&quot;:[0,&quot;phrecia2.0hc&quot;],&quot;displayName&quot;:[0,&quot;HC Phrecia 2.0&quot;]}],[0,{&quot;name&quot;:[0,&quot;Hardcore Keepers&quot;],&quot;url&quot;:[0,&quot;keepershc&quot;],&quot;displayName&quot;:[0,&quot;HC Keepers&quot;]}],[0,{&quot;name&quot;:[0,&quot;Hardcore Mercenaries&quot;],&quot;url&quot;:[0,&quot;mercenarieshc&quot;],&quot;displayName&quot;:[0,&quot;HC Mercenaries&quot;]}]]],&quot;snapshotVersions&quot;:[1,[[0,{&quot;url&quot;:[0,&quot;mirage&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0654-20260319-02648&quot;],&quot;snapshotName&quot;:[0,&quot;mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;mirage&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0713-20260319-56481&quot;],&quot;snapshotName&quot;:[0,&quot;mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;miragehc&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Hardcore Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0716-20260319-07409&quot;],&quot;snapshotName&quot;:[0,&quot;hardcore-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;miragehc&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Hardcore Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0717-20260319-32390&quot;],&quot;snapshotName&quot;:[0,&quot;hardcore-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;miragessf&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;SSF Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0717-20260319-40486&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;miragessf&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;SSF Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0720-20260319-10537&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;miragehcssf&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;HC SSF Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0720-20260319-44910&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;miragehcssf&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;HC SSF Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0721-20260319-29061&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;mirager&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Ruthless Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0721-20260319-32512&quot;],&quot;snapshotName&quot;:[0,&quot;ruthless-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;mirager&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Ruthless Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0721-20260319-40006&quot;],&quot;snapshotName&quot;:[0,&quot;ruthless-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;miragehcr&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;HC Ruthless Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0721-20260319-40670&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ruthless-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;miragehcr&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;HC Ruthless Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0721-20260319-43173&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ruthless-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;miragessfr&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;SSF R Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0721-20260319-43317&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-r-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;miragessfr&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;SSF R Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0721-20260319-47894&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-r-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;miragehcssfr&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;HC SSF R Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0721-20260319-48912&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-r-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;miragehcssfr&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;HC SSF R Mirage&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0721-20260319-54044&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-r-mirage&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;standard&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Standard&quot;],&quot;timeMachineLabels&quot;:[1,[]],&quot;version&quot;:[0,&quot;0620-20260319-46488&quot;],&quot;snapshotName&quot;:[0,&quot;standard&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl78865&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Mirage Warriors (PL78865)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;day-4&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;]]],&quot;version&quot;:[0,&quot;0636-20260319-55898&quot;],&quot;snapshotName&quot;:[0,&quot;mirage-warriors-(pl78865)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl78865&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Mirage Warriors (PL78865)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;day-4&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;]]],&quot;version&quot;:[0,&quot;0636-20260319-56147&quot;],&quot;snapshotName&quot;:[0,&quot;mirage-warriors-(pl78865)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl78808&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Zanas Search Party Mirage (PL78808)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;day-4&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0636-20260319-56166&quot;],&quot;snapshotName&quot;:[0,&quot;zanas-search-party-mirage-(pl78808)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl78808&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Zanas Search Party Mirage (PL78808)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;day-4&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0636-20260319-56576&quot;],&quot;snapshotName&quot;:[0,&quot;zanas-search-party-mirage-(pl78808)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl78662&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Mirage of the Conflux (PL78662)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0636-20260319-56714&quot;],&quot;snapshotName&quot;:[0,&quot;mirage-of-the-conflux-(pl78662)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl78662&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Mirage of the Conflux (PL78662)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0637-20260319-02340&quot;],&quot;snapshotName&quot;:[0,&quot;mirage-of-the-conflux-(pl78662)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl78661&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Cmentarzysko Mirage (PL78661)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0637-20260319-03113&quot;],&quot;snapshotName&quot;:[0,&quot;cmentarzysko-mirage-(pl78661)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl78661&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Cmentarzysko Mirage (PL78661)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0637-20260319-11052&quot;],&quot;snapshotName&quot;:[0,&quot;cmentarzysko-mirage-(pl78661)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;streamers&quot;],&quot;type&quot;:[0,&quot;streamers&quot;],&quot;name&quot;:[0,&quot;Streamers&quot;],&quot;timeMachineLabels&quot;:[1,[]],&quot;version&quot;:[0,&quot;0732-20260319-16602&quot;],&quot;snapshotName&quot;:[0,&quot;streamers&quot;],&quot;overviewType&quot;:[0,1],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;phrecia2.0&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Phrecia 2.0&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;2141-20260219-15938&quot;],&quot;snapshotName&quot;:[0,&quot;phrecia-2.0&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Alternate&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;phrecia2.0&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Phrecia 2.0&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;2153-20260219-07305&quot;],&quot;snapshotName&quot;:[0,&quot;phrecia-2.0&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Alternate&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepers&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2024-20260302-44004&quot;],&quot;snapshotName&quot;:[0,&quot;keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepers&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2042-20260302-27523&quot;],&quot;snapshotName&quot;:[0,&quot;keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenaries&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2036-20251027-55942&quot;],&quot;snapshotName&quot;:[0,&quot;mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenaries&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2052-20251027-47119&quot;],&quot;snapshotName&quot;:[0,&quot;mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26&quot;]}],[0,{&quot;url&quot;:[0,&quot;phrecia2.0hc&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Hardcore Phrecia 2.0&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;2110-20260219-06806&quot;],&quot;snapshotName&quot;:[0,&quot;hardcore-phrecia-2.0&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Alternate&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;phrecia2.0hc&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Hardcore Phrecia 2.0&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;2110-20260219-28857&quot;],&quot;snapshotName&quot;:[0,&quot;hardcore-phrecia-2.0&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Alternate&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepershc&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Hardcore Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2044-20260302-25921&quot;],&quot;snapshotName&quot;:[0,&quot;hardcore-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepershc&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Hardcore Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2046-20260302-24912&quot;],&quot;snapshotName&quot;:[0,&quot;hardcore-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenarieshc&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Hardcore Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2055-20251027-01486&quot;],&quot;snapshotName&quot;:[0,&quot;hardcore-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenarieshc&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Hardcore Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2057-20251027-59208&quot;],&quot;snapshotName&quot;:[0,&quot;hardcore-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26&quot;]}],[0,{&quot;url&quot;:[0,&quot;phrecia2.0ssf&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;SSF Phrecia 2.0&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;2114-20260219-05633&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-phrecia-2.0&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Alternate&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;phrecia2.0ssf&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;SSF Phrecia 2.0&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;2114-20260219-59676&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-phrecia-2.0&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Alternate&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepersssf&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;SSF Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2046-20260302-40934&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepersssf&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;SSF Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2050-20260302-36081&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenariesssf&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;SSF Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2058-20251027-14984&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenariesssf&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;SSF Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2103-20251027-07121&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26&quot;]}],[0,{&quot;url&quot;:[0,&quot;phrecia2.0hcssf&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;HC SSF Phrecia 2.0&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;2121-20260219-17656&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-phrecia-2.0&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Alternate&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;phrecia2.0hcssf&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;HC SSF Phrecia 2.0&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;2121-20260219-24386&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-phrecia-2.0&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Alternate&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepershcssf&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;HC SSF Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2051-20260302-40114&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepershcssf&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;HC SSF Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2052-20260302-40882&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenarieshcssf&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;HC SSF Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2104-20251027-39210&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenarieshcssf&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;HC SSF Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2107-20251027-16157&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepersr&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Ruthless Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2052-20260302-48481&quot;],&quot;snapshotName&quot;:[0,&quot;ruthless-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepersr&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Ruthless Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2053-20260302-12368&quot;],&quot;snapshotName&quot;:[0,&quot;ruthless-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenariesr&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Ruthless Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2107-20251027-42577&quot;],&quot;snapshotName&quot;:[0,&quot;ruthless-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenariesr&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Ruthless Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2108-20251027-07684&quot;],&quot;snapshotName&quot;:[0,&quot;ruthless-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepershcr&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;HC Ruthless Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2053-20260302-14839&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ruthless-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepershcr&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;HC Ruthless Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2053-20260302-20097&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ruthless-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenarieshcr&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;HC Ruthless Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2108-20251027-11474&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ruthless-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenarieshcr&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;HC Ruthless Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2108-20251027-20401&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ruthless-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepersssfr&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;SSF R Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2053-20260302-21708&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-r-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepersssfr&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;SSF R Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2053-20260302-32519&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-r-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenariesssfr&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;SSF R Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2108-20251027-21105&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-r-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenariesssfr&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;SSF R Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2108-20251027-40461&quot;],&quot;snapshotName&quot;:[0,&quot;ssf-r-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepershcssfr&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;HC SSF R Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2053-20260302-35638&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-r-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;keepershcssfr&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;HC SSF R Keepers&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2053-20260302-47069&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-r-keepers&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenarieshcssfr&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;HC SSF R Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2108-20251027-46053&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-r-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;mercenarieshcssfr&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;HC SSF R Mercenaries&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-14&quot;],[0,&quot;hour-6&quot;],[0,&quot;week-18&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-13&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;week-15&quot;],[0,&quot;week-19&quot;],[0,&quot;week-5&quot;],[0,&quot;day-4&quot;],[0,&quot;week-10&quot;],[0,&quot;hour-12&quot;],[0,&quot;week-16&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;],[0,&quot;week-8&quot;],[0,&quot;week-12&quot;],[0,&quot;week-17&quot;],[0,&quot;week-11&quot;],[0,&quot;week-9&quot;]]],&quot;version&quot;:[0,&quot;2109-20251027-04016&quot;],&quot;snapshotName&quot;:[0,&quot;hc-ssf-r-mercenaries&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26-Ruthless&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26-Ruthless&quot;]}],[0,{&quot;url&quot;:[0,&quot;uberincarnationofdreadbosskilleventhcssf&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Uber Incarnation of Dread Boss Kill Event&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;2058-20251120-25790&quot;],&quot;snapshotName&quot;:[0,&quot;uber-incarnation-of-dread-boss-kill-event&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;uberincarnationofdreadbosskilleventhcssf&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Uber Incarnation of Dread Boss Kill Event&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;2059-20251120-52451&quot;],&quot;snapshotName&quot;:[0,&quot;uber-incarnation-of-dread-boss-kill-event&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl77970&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Pohx Keepers Restart (PL77970)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-4&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;1543-20260208-46317&quot;],&quot;snapshotName&quot;:[0,&quot;pohx-keepers-restart-(pl77970)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl77970&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Pohx Keepers Restart (PL77970)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-4&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;1545-20260208-36268&quot;],&quot;snapshotName&quot;:[0,&quot;pohx-keepers-restart-(pl77970)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl76466&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;BPL XVIII (PL76466)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;2024-20251215-35938&quot;],&quot;snapshotName&quot;:[0,&quot;bpl-xviii-(pl76466)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl76466&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;BPL XVIII (PL76466)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;2024-20251215-41090&quot;],&quot;snapshotName&quot;:[0,&quot;bpl-xviii-(pl76466)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl75008&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Keepers of Conflux (PL75008)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-5&quot;],[0,&quot;week-8&quot;]]],&quot;version&quot;:[0,&quot;1819-20251230-25403&quot;],&quot;snapshotName&quot;:[0,&quot;keepers-of-conflux-(pl75008)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl75008&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Keepers of Conflux (PL75008)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-6&quot;],[0,&quot;week-4&quot;],[0,&quot;week-7&quot;],[0,&quot;week-1&quot;],[0,&quot;week-5&quot;],[0,&quot;week-8&quot;]]],&quot;version&quot;:[0,&quot;1819-20251230-30942&quot;],&quot;snapshotName&quot;:[0,&quot;keepers-of-conflux-(pl75008)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl75425&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Zanas Search Party Keepers (PL75425)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-4&quot;],[0,&quot;week-1&quot;]]],&quot;version&quot;:[0,&quot;1845-20251130-55216&quot;],&quot;snapshotName&quot;:[0,&quot;zanas-search-party-keepers-(pl75425)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl75425&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Zanas Search Party Keepers (PL75425)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-4&quot;],[0,&quot;week-1&quot;]]],&quot;version&quot;:[0,&quot;1845-20251130-56010&quot;],&quot;snapshotName&quot;:[0,&quot;zanas-search-party-keepers-(pl75425)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.27&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.27&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl74500&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Pohx Mercenary Fresh Start (PL74500)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-4&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;1425-20251025-36592&quot;],&quot;snapshotName&quot;:[0,&quot;pohx-mercenary-fresh-start-(pl74500)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl74500&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Pohx Mercenary Fresh Start (PL74500)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-6&quot;],[0,&quot;hour-18&quot;],[0,&quot;week-3&quot;],[0,&quot;week-2&quot;],[0,&quot;week-4&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;hour-3&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;1426-20251025-30903&quot;],&quot;snapshotName&quot;:[0,&quot;pohx-mercenary-fresh-start-(pl74500)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.26&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.26&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl77850&quot;],&quot;type&quot;:[0,&quot;exp&quot;],&quot;name&quot;:[0,&quot;Cola küsst Orange Spezicore GSF (PL77850)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-18&quot;],[0,&quot;week-2&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0952-20260122-11919&quot;],&quot;snapshotName&quot;:[0,&quot;cola-küsst-orange-spezicore-gsf-(pl77850)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}],[0,{&quot;url&quot;:[0,&quot;pl77850&quot;],&quot;type&quot;:[0,&quot;depthsolo&quot;],&quot;name&quot;:[0,&quot;Cola küsst Orange Spezicore GSF (PL77850)&quot;],&quot;timeMachineLabels&quot;:[1,[[0,&quot;hour-18&quot;],[0,&quot;week-2&quot;],[0,&quot;week-1&quot;],[0,&quot;day-6&quot;],[0,&quot;day-4&quot;],[0,&quot;hour-12&quot;],[0,&quot;day-2&quot;],[0,&quot;day-5&quot;],[0,&quot;day-3&quot;],[0,&quot;day-1&quot;]]],&quot;version&quot;:[0,&quot;0952-20260122-16278&quot;],&quot;snapshotName&quot;:[0,&quot;cola-küsst-orange-spezicore-gsf-(pl77850)&quot;],&quot;overviewType&quot;:[0,0],&quot;passiveTree&quot;:[0,&quot;PassiveTree-3.28&quot;],&quot;atlasTree&quot;:[0,&quot;AtlasTree-3.28&quot;]}]]],&quot;buildLeagues&quot;:[1,[[0,{&quot;name&quot;:[0,&quot;Mirage&quot;],&quot;url&quot;:[0,&quot;mirage&quot;],&quot;displayName&quot;:[0,&quot;Mirage&quot;]}],[0,{&quot;name&quot;:[0,&quot;Hardcore Mirage&quot;],&quot;url&quot;:[0,&quot;miragehc&quot;],&quot;displayName&quot;:[0,&quot;Hardcore Mirage&quot;]}],[0,{&quot;name&quot;:[0,&quot;SSF Mirage&quot;],&quot;url&quot;:[0,&quot;miragessf&quot;],&quot;displayName&quot;:[0,&quot;SSF Mirage&quot;]}],[0,{&quot;name&quot;:[0,&quot;HC SSF Mirage&quot;],&quot;url&quot;:[0,&quot;miragehcssf&quot;],&quot;displayName&quot;:[0,&quot;HC SSF Mirage&quot;]}],[0,{&quot;name&quot;:[0,&quot;Ruthless Mirage&quot;],&quot;url&quot;:[0,&quot;mirager&quot;],&quot;displayName&quot;:[0,&quot;Ruthless Mirage&quot;]}],[0,{&quot;name&quot;:[0,&quot;HC Ruthless Mirage&quot;],&quot;url&quot;:[0,&quot;miragehcr&quot;],&quot;displayName&quot;:[0,&quot;HC Ruthless Mirage&quot;]}],[0,{&quot;name&quot;:[0,&quot;SSF R Mirage&quot;],&quot;url&quot;:[0,&quot;miragessfr&quot;],&quot;displayName&quot;:[0,&quot;SSF R Mirage&quot;]}],[0,{&quot;name&quot;:[0,&quot;HC SSF R Mirage&quot;],&quot;url&quot;:[0,&quot;miragehcssfr&quot;],&quot;displayName&quot;:[0,&quot;HC SSF R Mirage&quot;]}],[0,{&quot;name&quot;:[0,&quot;Standard&quot;],&quot;url&quot;:[0,&quot;standard&quot;],&quot;displayName&quot;:[0,&quot;Standard&quot;]}],[0,{&quot;name&quot;:[0,&quot;Mirage Warriors (PL78865)&quot;],&quot;url&quot;:[0,&quot;pl78865&quot;],&quot;displayName&quot;:[0,&quot;Mirage Warriors&quot;]}],[0,{&quot;name&quot;:[0,&quot;Zanas Search Party Mirage (PL78808)&quot;],&quot;url&quot;:[0,&quot;pl78808&quot;],&quot;displayName&quot;:[0,&quot;Zanas Search Party Mirage&quot;]}],[0,{&quot;name&quot;:[0,&quot;Mirage of the Conflux (PL78662)&quot;],&quot;url&quot;:[0,&quot;pl78662&quot;],&quot;displayName&quot;:[0,&quot;Mirage of the Conflux&quot;]}],[0,{&quot;name&quot;:[0,&quot;Cmentarzysko Mirage (PL78661)&quot;],&quot;url&quot;:[0,&quot;pl78661&quot;],&quot;displayName&quot;:[0,&quot;Cmentarzysko Mirage&quot;]}]]],&quot;oldBuildLeagues&quot;:[1,[[0,{&quot;name&quot;:[0,&quot;Phrecia 2.0&quot;],&quot;url&quot;:[0,&quot;phrecia2.0&quot;],&quot;displayName&quot;:[0,&quot;Phrecia 2.0&quot;]}],[0,{&quot;name&quot;:[0,&quot;Keepers&quot;],&quot;url&quot;:[0,&quot;keepers&quot;],&quot;displayName&quot;:[0,&quot;Keepers&quot;]}],[0,{&quot;name&quot;:[0,&quot;Mercenaries&quot;],&quot;url&quot;:[0,&quot;mercenaries&quot;],&quot;displayName&quot;:[0,&quot;Mercenaries&quot;]}],[0,{&quot;name&quot;:[0,&quot;Hardcore Phrecia 2.0&quot;],&quot;url&quot;:[0,&quot;phrecia2.0hc&quot;],&quot;displayName&quot;:[0,&quot;HC Phrecia 2.0&quot;]}],[0,{&quot;name&quot;:[0,&quot;Hardcore Keepers&quot;],&quot;url&quot;:[0,&quot;keepershc&quot;],&quot;displayName&quot;:[0,&quot;HC Keepers&quot;]}],[0,{&quot;name&quot;:[0,&quot;Hardcore Mercenaries&quot;],&quot;url&quot;:[0,&quot;mercenarieshc&quot;],&quot;displayName&quot;:[0,&quot;HC Mercenaries&quot;]}],[0,{&quot;name&quot;:[0,&quot;SSF Phrecia 2.0&quot;],&quot;url&quot;:[0,&quot;phrecia2.0ssf&quot;],&quot;displayName&quot;:[0,&quot;SSF Phrecia 2.0&quot;]}],[0,{&quot;name&quot;:[0,&quot;SSF Keepers&quot;],&quot;url&quot;:[0,&quot;keepersssf&quot;],&quot;displayName&quot;:[0,&quot;SSF Keepers&quot;]}],[0,{&quot;name&quot;:[0,&quot;SSF Mercenaries&quot;],&quot;url&quot;:[0,&quot;mercenariesssf&quot;],&quot;displayName&quot;:[0,&quot;SSF Mercenaries&quot;]}],[0,{&quot;name&quot;:[0,&quot;HC SSF Phrecia 2.0&quot;],&quot;url&quot;:[0,&quot;phrecia2.0hcssf&quot;],&quot;displayName&quot;:[0,&quot;HC SSF Phrecia 2.0&quot;]}],[0,{&quot;name&quot;:[0,&quot;HC SSF Keepers&quot;],&quot;url&quot;:[0,&quot;keepershcssf&quot;],&quot;displayName&quot;:[0,&quot;HC SSF Keepers&quot;]}],[0,{&quot;name&quot;:[0,&quot;HC SSF Mercenaries&quot;],&quot;url&quot;:[0,&quot;mercenarieshcssf&quot;],&quot;displayName&quot;:[0,&quot;HC SSF Mercenaries&quot;]}],[0,{&quot;name&quot;:[0,&quot;Ruthless Keepers&quot;],&quot;url&quot;:[0,&quot;keepersr&quot;],&quot;displayName&quot;:[0,&quot;Ruthless Keepers&quot;]}],[0,{&quot;name&quot;:[0,&quot;Ruthless Mercenaries&quot;],&quot;url&quot;:[0,&quot;mercenariesr&quot;],&quot;displayName&quot;:[0,&quot;Ruthless Mercenaries&quot;]}],[0,{&quot;name&quot;:[0,&quot;HC Ruthless Keepers&quot;],&quot;url&quot;:[0,&quot;keepershcr&quot;],&quot;displayName&quot;:[0,&quot;HC Ruthless Keepers&quot;]}],[0,{&quot;name&quot;:[0,&quot;HC Ruthless Mercenaries&quot;],&quot;url&quot;:[0,&quot;mercenarieshcr&quot;],&quot;displayName&quot;:[0,&quot;HC Ruthless Mercenaries&quot;]}],[0,{&quot;name&quot;:[0,&quot;SSF R Keepers&quot;],&quot;url&quot;:[0,&quot;keepersssfr&quot;],&quot;displayName&quot;:[0,&quot;SSF R Keepers&quot;]}],[0,{&quot;name&quot;:[0,&quot;SSF R Mercenaries&quot;],&quot;url&quot;:[0,&quot;mercenariesssfr&quot;],&quot;displayName&quot;:[0,&quot;SSF R Mercenaries&quot;]}],[0,{&quot;name&quot;:[0,&quot;HC SSF R Keepers&quot;],&quot;url&quot;:[0,&quot;keepershcssfr&quot;],&quot;displayName&quot;:[0,&quot;HC SSF R Keepers&quot;]}],[0,{&quot;name&quot;:[0,&quot;HC SSF R Mercenaries&quot;],&quot;url&quot;:[0,&quot;mercenarieshcssfr&quot;],&quot;displayName&quot;:[0,&quot;HC SSF R Mercenaries&quot;]}],[0,{&quot;name&quot;:[0,&quot;Uber Incarnation of Dread Boss Kill Event&quot;],&quot;url&quot;:[0,&quot;uberincarnationofdreadbosskilleventhcssf&quot;],&quot;displayName&quot;:[0,&quot;Uber Incarnation of Dread Boss Kill Event&quot;]}],[0,{&quot;name&quot;:[0,&quot;Pohx Keepers Restart (PL77970)&quot;],&quot;url&quot;:[0,&quot;pl77970&quot;],&quot;displayName&quot;:[0,&quot;Pohx Keepers Restart&quot;]}],[0,{&quot;name&quot;:[0,&quot;BPL XVIII (PL76466)&quot;],&quot;url&quot;:[0,&quot;pl76466&quot;],&quot;displayName&quot;:[0,&quot;BPL XVIII&quot;]}],[0,{&quot;name&quot;:[0,&quot;Keepers of Conflux (PL75008)&quot;],&quot;url&quot;:[0,&quot;pl75008&quot;],&quot;displayName&quot;:[0,&quot;Keepers of Conflux&quot;]}],[0,{&quot;name&quot;:[0,&quot;Zanas Search Party Keepers (PL75425)&quot;],&quot;url&quot;:[0,&quot;pl75425&quot;],&quot;displayName&quot;:[0,&quot;Zanas Search Party Keepers&quot;]}],[0,{&quot;name&quot;:[0,&quot;Pohx Mercenary Fresh Start (PL74500)&quot;],&quot;url&quot;:[0,&quot;pl74500&quot;],&quot;displayName&quot;:[0,&quot;Pohx Mercenary Fresh Start&quot;]}],[0,{&quot;name&quot;:[0,&quot;Cola küsst Orange Spezicore GSF (PL77850)&quot;],&quot;url&quot;:[0,&quot;pl77850&quot;],&quot;displayName&quot;:[0,&quot;Cola küsst Orange Spezicore GSF&quot;]}]]]}]}"
+            ssr client="only" opts="{&quot;name&quot;:&quot;TopBar&quot;,&quot;value&quot;:true}"></astro-island>
+    </header>
+    <div class="leaderboard-top">
+        <div id="leaderboard-top"></div>
+    </div>
+    <div class="fill-left">
+        <div id="skyscraper-left"></div>
+    </div>
+    <div class="main p-0 md:px-2" id="main">
+        <astro-island uid="1RQuop" component-url="https://assets.poe.ninja/_astro/CharPageWrapper.CV8BgdWk.js"
+            component-export="CharPageWrapper" renderer-url="https://assets.poe.ninja/_astro/client.BhPZdTnF.js"
+            props="{&quot;league&quot;:[0,&quot;mirage&quot;],&quot;account&quot;:[0,&quot;Hatred-4249&quot;],&quot;name&quot;:[0,&quot;trysiki_yukimeww&quot;],&quot;type&quot;:[0,&quot;exp&quot;]}"
+            ssr client="only"
+            opts="{&quot;name&quot;:&quot;CharPageWrapper&quot;,&quot;value&quot;:true}"></astro-island>
+    </div>
+    <div class="fill-right">
+        <div id="skyscraper-right"></div>
+    </div>
+    <div class="leaderboard-bottom">
+        <div id="leaderboard-bottom"></div>
+    </div>
+    <footer role="contentinfo" id="site-footer">
+        <div class="flex flex-wrap gap-6 p-6" style="justify-content: space-evenly;">
+            <div>
+                <a class="button" href="/account" data-variant="outlined" data-size="base">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-settings h-4 w-4" aria-hidden="true">
+                        <path
+                            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z">
+                        </path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    Account
+
+                </a>
+            </div>
+            <div class="flex flex-col gap-2">
+                <div class="font-bold flex items-center gap-2">
+                    Contribute
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="red"
+                        stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-heart h-4 w-4" aria-hidden="true">
+                        <path
+                            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+                        </path>
+                    </svg>
+                </div>
+                <a href="/support">Support the site</a>
+            </div>
+            <div class="flex flex-col gap-2">
+                <div class="font-bold">About</div>
+                <a href="/faq">FAQ</a>
+                <a href="https://discord.gg/7qSRyKdyre" class="flex items-center gap-2">
+                    Discord
+                    <svg id="logo-discord_svg__Layer_1" viewBox="0 0 245 240" width="1em" height="1em">
+                        <style>
+                            .logo-discord_svg__st0 {
+                                fill: #fff
+                            }
+                        </style>
+                        <path class="logo-discord_svg__st0"
+                            d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zm36.5 0c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1s-4.5-11.1-10.2-11.1z">
+                        </path>
+                        <path class="logo-discord_svg__st0"
+                            d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2 21.5 19V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="/stats">Statistics</a>
+                <a href="/poe1/data">Data dumps</a>
+            </div>
+            <div class="flex flex-col gap-2">
+                <div class="font-bold">Resources</div>
+                <a href="/privacy">Privacy Policy</a>
+                <div id="ncmp-consent-link"></div>
+                <p>
+                    <a href="https://www.playwire.com/contact-direct-sales" rel="noopener">
+                        <img src="https://www.playwire.com/hubfs/Powered-by-Playwire-Badges/Ads-Powered-by-playwire-2021-standalone-small-white-300px.png"
+                            alt="Ads-Powered-by-playwire-2021-standalone-small-white-300px" loading="lazy"
+                            style="width:150;display:block;height:auto;max-width:100%">
+                    </a>
+                </p>
+                <p>
+                    <a href="https://www.playwire.com/contact-direct-sales" rel="noreferrer" target="_blank">Advertise
+                        on this site
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="flex justify-center p-6">
+            <span data-variant="subdued" class="_text_11d3e_1 ">poe.ninja is not affiliated with or endorsed by Grinding
+                Gear Games.</span>
+        </div>
+    </footer>
+    <div class="video-bottom">
+        <div id="video-bottom"></div>
+    </div>
+    <script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516"
+        integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg=="
+        data-cf-beacon='{"version":"2024.11.0","token":"6d700c008e884b37a94aa2cb0e4a4e1d","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
