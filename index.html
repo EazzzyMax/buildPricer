@@ -487,6 +487,8 @@
             pointer-events: none;
             z-index: 9999;
             display: none;
+            /* Invisible safe zone border requested by user */
+            border: 5px solid transparent;
         }
 
         /* --- poe.ninja CSS Variables (colours for item types) --- */
@@ -683,13 +685,18 @@
         .ninja-tooltip-wrapper .ninja-copy-highlight {
             background-color: #333F55 !important;
             border-radius: 2px !important;
-            /* Tighter shadow spread to avoid overlapping adjacent lines of text */
-            box-shadow: 0 0 0 2px #333F55 !important;
+            /* Restored large shadow spread for a more premium look */
+            box-shadow: 0 0 0 4px #333F55 !important;
             -webkit-box-decoration-break: clone;
             box-decoration-break: clone;
             z-index: 10;
             position: relative;
             cursor: pointer !important;
+        }
+
+        /* Support for large highlights: add vertical breathing room */
+        .ninja-tooltip-wrapper ._item-body_1tb3h_1 * {
+            line-height: 1.4 !important;
         }
 
         #floating-copy-icon {
@@ -1172,8 +1179,8 @@
             if (y + th > window.innerHeight) y = window.innerHeight - th - MARGIN;
             if (y < 0) y = MARGIN;
 
-            tooltipRoot.style.left = x + 'px';
-            tooltipRoot.style.top = y + 'px';
+            tooltipRoot.style.left = (x - 5) + 'px';
+            tooltipRoot.style.top = (y - 5) + 'px';
         }
 
         function scheduleHide() {
