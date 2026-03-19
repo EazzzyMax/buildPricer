@@ -326,7 +326,8 @@
         .hover-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(10, 12, 16, 0.6);
+            background: rgba(10, 12, 16, 0.4);
+            /* Чуть светлее */
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             display: flex;
@@ -336,7 +337,8 @@
             gap: 12px;
             opacity: 0;
             transition: all 0.3s ease;
-            z-index: 20;
+            z-index: 50;
+            /* Ниже тултипа */
             pointer-events: none;
         }
 
@@ -475,6 +477,79 @@
             display: flex;
             gap: 10px;
             margin-top: 10px;
+        }
+
+        /* Ninja Tooltip Styles */
+        #item-tooltip-root {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+            max-width: 400px;
+        }
+
+        .ninja-tooltip-content {
+            background-color: #0c0e12;
+            border: 1px solid #4a5568;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+            font-family: inherit;
+        }
+
+        .ninja-tooltip-content header {
+            padding: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid #4a5568;
+            text-align: center;
+        }
+
+        .ninja-tooltip-content h1 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+            color: #af6025;
+            /* Unique color by default */
+        }
+
+        .relative.whitespace-pre-wrap {
+            padding: 10px;
+            font-size: 13px;
+            color: #a0aec0;
+            line-height: 1.4;
+        }
+
+        .property {
+            color: #cbd5e0;
+            margin-bottom: 4px;
+        }
+
+        .property span:first-child {
+            color: #718096;
+        }
+
+        .separator {
+            height: 1px;
+            background: #4a5568;
+            margin: 8px 0;
+        }
+
+        .description {
+            font-style: italic;
+            color: #af6025;
+            margin-top: 8px;
+        }
+
+        .mods-enchanted {
+            color: #b4b4ff;
+        }
+
+        .mods-implicit {
+            color: #b4b4ff;
+        }
+
+        .mods-explicit {
+            color: #b4b4ff;
         }
 
         .btn {
@@ -639,6 +714,7 @@
 
 <body>
     <div id="notification-container"></div>
+    <div id="item-tooltip-root"></div>
 
     <header class="header">
         <h1>Build Pricer</h1>
@@ -683,6 +759,35 @@
         const editIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>`;
         const currencyIcon = `<img src="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png" class="currency-icon">`;
 
+        const tooltipRoot = document.getElementById('item-tooltip-root');
+
+        function showItemTooltip(e, id) {
+            const item = items[id];
+            if (!item || !item.tooltip) return;
+
+            tooltipRoot.innerHTML = `<div class="ninja-tooltip-content">${item.tooltip}</div>`;
+            tooltipRoot.style.display = 'block';
+            moveItemTooltip(e);
+        }
+
+        function moveItemTooltip(e) {
+            if (tooltipRoot.style.display === 'none') return;
+
+            let x = e.clientX + 20;
+            let y = e.clientY + 20;
+
+            // Check screen boundaries
+            if (x + 350 > window.innerWidth) x = e.clientX - 370;
+            if (y + 400 > window.innerHeight) y = window.innerHeight - 420;
+
+            tooltipRoot.style.left = x + 'px';
+            tooltipRoot.style.top = y + 'px';
+        }
+
+        function hideItemTooltip() {
+            tooltipRoot.style.display = 'none';
+        }
+
         function render() {
             eqGrid.innerHTML = '';
 
@@ -702,6 +807,10 @@
             if (item) {
                 slotEl.href = item.link || '#';
                 slotEl.target = '_blank';
+                // Тултипы теперь на самом слоте, чтобы работали сквозь оверлей
+                slotEl.onmouseenter = (e) => showItemTooltip(e, id);
+                slotEl.onmouseleave = () => hideItemTooltip();
+                slotEl.onmousemove = (e) => moveItemTooltip(e);
             } else {
                 slotEl.onclick = () => showEdit(id);
             }
@@ -820,6 +929,7 @@
                     items[slotId] = {
                         name: itemName || 'Unknown Item',
                         icon: poeItem.icon || '',
+                        tooltip: poeItem.tooltip || '', // Загружаем тултип
                         min: '',
                         good: '',
                         perfect: '',
@@ -884,6 +994,7 @@
 
         window.saveItem = function (id) {
             items[id] = {
+                ...items[id], // Сохраняем тултип, если он был
                 name: document.getElementById('fm-name').value || 'Unknown Item',
                 icon: document.getElementById('fm-icon').value,
                 min: document.getElementById('fm-min').value,

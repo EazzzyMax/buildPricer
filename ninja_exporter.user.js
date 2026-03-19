@@ -141,45 +141,41 @@
                     if (tooltipHtml) break;
                 }
 
+                let tooltipRaw = '';
                 if (tooltipHtml) {
-                    const h1 = tooltipHtml.querySelector('header h1');
-                    if (h1) {
-                        // Текст будет строкой "Ralakesh's Impatience\nRiveted Boots"
-                        const text = h1.innerText.trim();
-                        const lines = text.split('\n');
-                        name = lines[0].trim(); // Берем первую строку как название уник/рарки
+                    // Копируем содержимое тултипа (внутренний div с контентом)
+                    const contentDiv = tooltipHtml.querySelector('.relative.whitespace-pre-wrap');
+                    if (contentDiv) {
+                        tooltipRaw = contentDiv.innerHTML;
                     } else {
-                        // Фолбэк на случай если h1 нет
-                        const lines = tooltipHtml.innerText.trim().split('\n').filter(l => l.length > 0);
-                        let startIdx = 0;
-                        while (startIdx < lines.length && (lines[startIdx].includes("Item Class") || lines[startIdx].includes("Rarity"))) startIdx++;
-                        if (lines[startIdx]) name = lines[startIdx];
+                        tooltipRaw = tooltipHtml.innerHTML;
                     }
 
-                    log(`Слот: ${slotId} | Имя из тултипа: "${name}"`);
-                } else {
-                    log(`Слот: ${slotId} | Тултип так и не появился в DOM за 1000мс!`);
+                    const h1 = tooltipHtml.querySelector('header h1');
+                    if (h1) {
+                        const text = h1.innerText.trim();
+                        const lines = text.split('\n');
+                        name = lines[0].trim();
+                    }
+                    log(`Слот: ${slotId} | Имя из тултипа: "${name}" | Тултип захвачен`);
                 }
 
                 emulateUnhover(node);
-                await delay(30); // Чуть ждем, чтобы старый тултип успел удалиться
+                await delay(30);
+
+                const itemData = {
+                    inventoryId: slotId,
+                    icon: iconUrl,
+                    name: name,
+                    tooltip: tooltipRaw // Сохраняем сырой HTML тултипа
+                };
 
                 if (slotId === 'Flask') {
-                    // Разрешаем добавить до 5 фласок, так как они все имеют базовый slotId = 'Flask'
                     if (items.filter(item => item.inventoryId === 'Flask').length < 5) {
-                        items.push({
-                            inventoryId: slotId,
-                            icon: iconUrl,
-                            name: name
-                        });
+                        items.push(itemData);
                     }
                 } else if (!items.find(item => item.inventoryId === slotId)) {
-                    // Остальные предметы строго по одному на слот (защита от дивов-теней)
-                    items.push({
-                        inventoryId: slotId,
-                        icon: iconUrl,
-                        name: name
-                    });
+                    items.push(itemData);
                 }
             }
 
