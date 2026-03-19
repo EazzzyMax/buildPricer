@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoE Trade Pricer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --bg-base: #0f1115;
+            --bg-card: #181b21;
+            --bg-card-hover: #1e222b;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --accent-gold: #c8aa6e;
+            --accent-gold-hover: #dfbd7b;
+            --border-color: #2e3340;
+            --glow-color: rgba(200, 170, 110, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem 1.5rem;
+        }
+
+        .header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-shadow: 0 0 20px var(--glow-color);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(10px);
+            min-height: 180px;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            background-color: var(--bg-card-hover);
+            border-color: rgba(200, 170, 110, 0.3);
+            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1), 0 0 20px var(--glow-color);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .item-name {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: capitalize;
+        }
+
+        .edit-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px;
+            opacity: 0.3;
+            transition: all 0.2s;
+            margin-left: 8px;
+        }
+
+        .card:hover .edit-btn {
+            opacity: 0.8;
+        }
+
+        .edit-btn:hover {
+            color: var(--accent-gold);
+            opacity: 1 !important;
+        }
+
+        .prices {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .price-box {
+            flex: 1;
+            background-color: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: background-color 0.3s ease;
+        }
+
+        .card:hover .price-box {
+            background-color: rgba(0, 0, 0, 0.35);
+        }
+
+        .price-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .price-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .currency-icon {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 4px rgba(200, 170, 110, 0.4));
+            vertical-align: middle;
+        }
+
+        /* Styles for Add Card and Edit mode */
+        .card.add-card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px dashed var(--border-color);
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .card.add-card:hover {
+            border-color: var(--accent-gold);
+            background: rgba(200, 170, 110, 0.05);
+        }
+
+        .plus-icon {
+            color: var(--text-secondary);
+            font-size: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .card.add-card:hover .plus-icon {
+            color: var(--accent-gold);
+            transform: scale(1.1);
+        }
+
+        .edit-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+            height: 100%;
+        }
+
+        .edit-form input {
+            background: #000;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            padding: 0.5rem;
+            font-family: inherit;
+        }
+
+        .edit-form input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .edit-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.6rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+            transition: filter 0.2s;
+        }
+
+        .btn:hover {
+            filter: brightness(1.2);
+        }
+
+        .btn-save {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        .btn-cancel {
+            background: #333;
+            color: #fff;
+        }
+
+        .btn-delete {
+            background: #721c24;
+            color: #fff;
+            flex: 0 0 40px;
+        }
+
+        @media (max-width: 640px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>Build Pricer</h1>
+        <p>Быстрый доступ к поиску предметов</p>
+    </header>
+
+    <div class="grid" id="items-grid">
+        <!-- Карточки будут здесь -->
+    </div>
+
+    <script>
+        const initialItems = [
+            { name: "Палка", min: "1", good: "1", perfect: "2", link: "https://www.pathofexile.com/trade/search/Mirage/EBoLI59VC5" },
+            { name: "Белт", min: "0.5", good: "4", perfect: "", link: "https://www.pathofexile.com/trade/search/Mirage/LgByJZzXHn" },
+            { name: "Кольца", min: "2", good: "4", perfect: "10", link: "https://www.pathofexile.com/trade/search/Mirage/9z230YLmCK" },
+            { name: "Амулет", min: "0", good: "30", perfect: "100", link: "https://www.pathofexile.com/trade/search/Mirage/d8krJOebhJ" },
+            { name: "Ботинки", min: "0", good: "0", perfect: "", link: "https://www.pathofexile.com/trade/search/Mirage/4mM3XBeMU9" },
+            { name: "Шлем", min: "1", good: "1", perfect: "", link: "https://www.pathofexile.com/trade/search/Mirage/PPro3rGqIL" }
+        ];
+
+        let items = JSON.parse(localStorage.getItem('poe_pricer_items')) || initialItems;
+
+        const grid = document.getElementById('items-grid');
+        const editIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>`;
+        const currencyIconHtml = `<img src="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png" alt="divine" class="currency-icon">`;
+
+        function render() {
+            grid.innerHTML = '';
+
+            items.forEach((item, index) => {
+                const card = document.createElement('a');
+                card.href = item.link;
+                card.target = "_blank";
+                card.className = "card";
+
+                const priceHtml = [
+                    { label: 'MIN', value: item.min },
+                    { label: 'GOOD', value: item.good },
+                    { label: 'PERFECT', value: item.perfect }
+                ]
+                    .filter(p => p.value !== "" && p.value !== null && p.value !== undefined)
+                    .map(p => `
+                    <div class="price-box">
+                        <span class="price-label">${p.label}</span>
+                        <span class="price-value">${p.value} ${currencyIconHtml}</span>
+                    </div>
+                `).join('');
+
+                card.innerHTML = `
+                    <div class="card-header">
+                        <h2 class="item-name">${item.name}</h2>
+                        <button class="edit-btn" onclick="event.preventDefault(); event.stopPropagation(); showEditForm(${index}, this.parentElement.parentElement)">${editIconSvg}</button>
+                    </div>
+                    <div class="prices">
+                        ${priceHtml}
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+
+            const addTile = document.createElement('div');
+            addTile.className = "card add-card";
+            addTile.innerHTML = `<span class="plus-icon">+</span>`;
+            addTile.onclick = () => {
+                addTile.style.display = 'none';
+                const container = document.createElement('div');
+                grid.insertBefore(container, addTile);
+                showEditForm(-1, container);
+            };
+            grid.appendChild(addTile);
+        }
+
+        window.showEditForm = function (index, targetElement) {
+            const isNew = index === -1;
+            const item = isNew ? { name: '', min: '', good: '', perfect: '', link: '' } : items[index];
+
+            // Если это ссылка, меняем её на div, чтобы не срабатывал переход при клике на инпуты
+            const container = document.createElement('div');
+            container.className = "card";
+            container.style.transform = 'none';
+            targetElement.replaceWith(container);
+
+            container.innerHTML = `
+                <div class="edit-form">
+                    <input type="text" id="edit-name" placeholder="Название" value="${item.name}" autofocus>
+                    <input type="text" id="edit-min" placeholder="Min цена" value="${item.min || ''}">
+                    <input type="text" id="edit-good" placeholder="Good цена" value="${item.good || ''}">
+                    <input type="text" id="edit-perfect" placeholder="Perfect цена" value="${item.perfect || ''}">
+                    <input type="text" id="edit-link" placeholder="Ссылка на трейд" value="${item.link}">
+                    <div class="edit-actions">
+                        ${!isNew ? `<button class="btn btn-delete" onclick="deleteItem(${index})" title="Удалить">🗑</button>` : ''}
+                        <button class="btn btn-cancel" onclick="render()">Отмена</button>
+                        <button class="btn btn-save" onclick="saveItem(${index})">OK</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        window.saveItem = function (index) {
+            const newItem = {
+                name: document.getElementById('edit-name').value || "Без названия",
+                min: document.getElementById('edit-min').value,
+                good: document.getElementById('edit-good').value,
+                perfect: document.getElementById('edit-perfect').value,
+                link: document.getElementById('edit-link').value || "#"
+            };
+
+            if (index === -1) {
+                items.push(newItem);
+            } else {
+                items[index] = newItem;
+            }
+
+            localStorage.setItem('poe_pricer_items', JSON.stringify(items));
+            render();
+        }
+
+        window.deleteItem = function (index) {
+            items.splice(index, 1);
+            localStorage.setItem('poe_pricer_items', JSON.stringify(items));
+            render();
+        }
+
+        render();
+    </script>
+</body>
+
+</html>
