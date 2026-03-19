@@ -698,7 +698,7 @@
             margin-right: auto;
         }
 
-        /* Ensure sections stay centered properly */
+        /* Ensure items stay centered properly */
         ._item-body_1tb3h_1 section {
             display: flex;
             flex-direction: column;
@@ -707,16 +707,6 @@
             margin-bottom: 4px;
         }
 
-        /* Fixed centering for specific sub-containers like explicit/implicit mod groups */
-        #explicit,
-        #implicit {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-
-        /* Keep elements shrink-wrapped for highlighting */
         ._item-body_1tb3h_1 div,
         ._item-body_1tb3h_1 span {
             width: fit-content;
@@ -1052,13 +1042,7 @@
                 const prev = tooltipRoot.querySelector('.ninja-copy-highlight');
                 if (prev) prev.classList.remove('ninja-copy-highlight');
 
-                if (!e.target ||
-                    e.target.tagName === 'SECTION' ||
-                    e.target.tagName === 'HEADER' ||
-                    e.target.tagName === 'ARTICLE' ||
-                    e.target.classList.contains('ninja-tooltip-wrapper') ||
-                    e.target.classList.contains('_item-body_1tb3h_1')
-                ) return;
+                if (!e.target || e.target.tagName === 'SECTION' || e.target.tagName === 'HEADER' || e.target.classList.contains('ninja-tooltip-wrapper')) return;
 
                 // Add highlight if element has text content
                 if (e.target.innerText && e.target.innerText.trim()) {
@@ -1069,13 +1053,7 @@
             // Handle clicking lines inside the tooltip to copy text
             tooltipRoot.onclick = function (e) {
                 if (isTooltipPinned && e.target.closest('.ninja-pin-btn')) return;
-
-                if (!e.target ||
-                    e.target.tagName === 'SECTION' ||
-                    e.target.tagName === 'HEADER' ||
-                    e.target.tagName === 'ARTICLE' ||
-                    e.target.classList.contains('_item-body_1tb3h_1')
-                ) return;
+                if (!e.target || e.target.tagName === 'SECTION' || e.target.tagName === 'HEADER') return;
 
                 // Extract text, handling the nested name lines (H1 > Div)
                 let textToCopy = "";
