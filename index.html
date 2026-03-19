@@ -56,7 +56,7 @@
             flex-direction: column;
             gap: 2rem;
             align-items: center;
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
         }
 
@@ -66,6 +66,92 @@
             grid-template-rows: repeat(10, 100px);
             gap: 8px;
             justify-content: center;
+        }
+
+        .jewels-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 262px);
+            gap: 8px;
+            justify-content: center;
+            width: 1072px;
+            margin: 1.5rem auto;
+        }
+
+        .jewels-grid .slot {
+            width: 262px;
+            height: 100px;
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .jewels-grid .slot-label {
+            position: static;
+            font-size: 11px;
+            color: var(--accent-gold);
+            height: auto;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            text-align: left;
+            margin-bottom: 2px;
+            opacity: 1;
+        }
+
+        .jewels-grid .slot-content {
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            height: 60px;
+        }
+
+        .jewels-grid .item-icon {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        .jewels-grid .prices {
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            align-items: center;
+            margin: 0;
+            min-height: auto;
+            flex-grow: 1;
+        }
+
+        .jewels-grid .price-line {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+            min-width: 55px;
+        }
+
+        .jewels-grid .p-value {
+            white-space: nowrap;
+        }
+
+        .section-title {
+            width: 100%;
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+            border-bottom: 1px solid rgba(200, 170, 110, 0.2);
+            padding-bottom: 10px;
         }
 
         .flasks-row {
@@ -116,6 +202,16 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        .jewels-grid .slot {
+            height: 120px;
+        }
+
+        .jewels-grid .item-icon {
+            max-width: 80px;
+            max-height: 80px;
+            margin: auto;
         }
 
         .slot-content {
@@ -992,9 +1088,11 @@
     </div>
 
     <div class="inventory-wrapper">
-        <div class="equipment-grid" id="eq-grid">
-            <!-- Slots will be rendered here -->
-        </div>
+        <div class="section-title">Equipment & Flasks</div>
+        <div class="equipment-grid" id="eq-grid"></div>
+
+        <div class="section-title">Jewels & Clusters</div>
+        <div class="jewels-grid" id="jewels-grid"></div>
     </div>
 
     <div id="modal-container"></div>
@@ -1014,6 +1112,7 @@
         ];
 
         const FLASK_SLOTS = ['flask1', 'flask2', 'flask3', 'flask4', 'flask5'];
+        const JEWEL_SLOTS = Array.from({ length: 18 }, (_, i) => `jewel${i + 1}`);
 
         let items = JSON.parse(localStorage.getItem('poe_pricer_items_visual')) || {};
 
@@ -1197,7 +1296,12 @@
         }
 
         function render() {
+            const eqGrid = document.getElementById('eq-grid');
+            const jwGrid = document.getElementById('jewels-grid');
+            if (!eqGrid || !jwGrid) return;
+
             eqGrid.innerHTML = '';
+            jwGrid.innerHTML = '';
 
             SLOTS.forEach(slot => {
                 eqGrid.appendChild(createSlot(slot.id, slot.label));
@@ -1205,6 +1309,10 @@
 
             FLASK_SLOTS.forEach((id, index) => {
                 eqGrid.appendChild(createSlot(id, `F${index + 1}`, true));
+            });
+
+            JEWEL_SLOTS.forEach((id, index) => {
+                jwGrid.appendChild(createSlot(id, `JEWEL ${index + 1}`));
             });
         }
 
@@ -1319,13 +1427,22 @@
 
             items = {}; // Clear existing to prevent mixed items
             let currentFlaskSlot = 1;
+            let currentJewelSlot = 1;
 
             data.items.forEach(poeItem => {
-                let slotId = poeToSlotMap[poeItem.inventoryId];
+                const invId = (poeItem.inventoryId || '').toLowerCase();
+                let slotId = poeToSlotMap[poeItem.inventoryId]; // Try exact match first
 
-                if (poeItem.inventoryId === 'Flask' && currentFlaskSlot <= 5) {
+                // Fallback for flasks
+                if (invId === 'flask' && currentFlaskSlot <= 5) {
                     slotId = `flask${currentFlaskSlot}`;
                     currentFlaskSlot++;
+                }
+
+                // Fallback for jewels (any jewel-like name)
+                if ((invId === 'jewel' || invId === 'clusterjewel' || invId.includes('passive')) && currentJewelSlot <= 18) {
+                    slotId = `jewel${currentJewelSlot}`;
+                    currentJewelSlot++;
                 }
 
                 if (slotId) {

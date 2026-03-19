@@ -65,12 +65,14 @@
                 'Amulet': 'Amulet',
                 'Ring2': 'Ring2',
                 'Ring': 'Ring',
-                'Belt': 'Belt'
+                'Belt': 'Belt',
+                'Jewel': 'Jewel',
+                'ClusterJewel': 'ClusterJewel'
             }; // Фласки убрали из стандартного маппинга, так как они вложены
 
             const slotKeysSorted = Object.keys(slotMap).sort((a, b) => b.length - a.length);
 
-            // Обычные шмотки
+            // Обычные шмотки + Самоцветы
             const validNodes = Array.from(slotsNodes).filter(n => {
                 const ga = n.style.gridArea;
                 return ga && slotKeysSorted.some(k => ga.startsWith(k)) && n.hasAttribute('data-tooltip-id');
@@ -90,7 +92,29 @@
                 });
             }
 
-            log(`Отфильтровано узлов с тултипом (реальные шмотки + фласки): ${validNodes.length}`);
+            // [NEW] Поиск джевелов вне основной сетки (в списках и секциях)
+            const allPossibleItems = document.querySelectorAll('[data-tooltip-id]');
+            for (const item of allPossibleItems) {
+                // Если мы его уже добавили или это вложенный элемент (например, гем в сокете шмотки)
+                if (validNodes.includes(item)) continue;
+                if (validNodes.some(v => v.contains(item))) continue;
+
+                // Проверяем родителей на наличие слов Jewel / Cluster
+                const context = item.closest('section, div.flex.flex-col, div[class*="gap-"]');
+                const contextText = context ? context.innerText || '' : '';
+
+                if (contextText.includes('Jewels') || contextText.includes('Cluster')) {
+                    item.dataset.forcedSlot = 'Jewel';
+                    validNodes.push(item);
+                }
+                // Или если сам элемент имеет в подсказке или стилях намек на джевел
+                else if (item.style.gridArea && (item.style.gridArea.includes('Jewel') || item.style.gridArea.includes('Passive'))) {
+                    item.dataset.forcedSlot = 'Jewel';
+                    validNodes.push(item);
+                }
+            }
+
+            log(`Отфильтровано узлов с тултипом (шмотки + фласки + джевела): ${validNodes.length}`);
 
             if (validNodes.length === 0) {
                 throw new Error("Не удалось найти слоты предметов с тултипами. Подгрузите страницу до конца.");
@@ -118,10 +142,20 @@
                 if (urlMatch) {
                     iconUrl = urlMatch[1];
                 } else if (node.tagName.toLowerCase() === 'img') {
-                    iconUrl = node.src; // Если тултип висит прямо на картинке (часто бывает у фласок)
+                    iconUrl = node.src;
                 } else {
+                    // Пробуем найти картинку внутри или в фоне вложенных элементов
                     const img = node.querySelector('img:not([alt="Socketed Item"]):not([src*="socket"])');
-                    if (img) iconUrl = img.src;
+                    if (img) {
+                        iconUrl = img.src;
+                    } else {
+                        const subWithBg = node.querySelector('[style*="background-image"]');
+                        if (subWithBg) {
+                            const subBg = window.getComputedStyle(subWithBg).backgroundImage;
+                            const subMatch = subBg.match(/url\("?([^"]+)"?\)/);
+                            if (subMatch) iconUrl = subMatch[1];
+                        }
+                    }
                 }
 
                 log(`Слот: ${slotId} | Иконка: ${iconUrl ? iconUrl : 'НЕТ'}`);
@@ -142,7 +176,31 @@
                 }
 
                 let tooltipRaw = '';
+                let isGemItem = false;
                 if (tooltipHtml) {
+                    const h1 = tooltipHtml.querySelector('header h1');
+                    if (h1) {
+                        const text = h1.innerText.trim();
+                        const lines = text.split('\n');
+                        name = lines[0].trim();
+                    }
+
+                    // Проверка: не гем ли это?
+                    const isGem = (html, itemName) => {
+                        const low = html.toLowerCase();
+                        const lowName = (itemName || '').toLowerCase();
+                        return low.includes('item-gem') ||
+                            low.includes('place into an item socket') ||
+                            low.includes('right click to remove from a socket') ||
+                            lowName.endsWith(' support') ||
+                            lowName.includes(' awakened ');
+                    };
+
+                    if (isGem(tooltipHtml.innerHTML, name) || (iconUrl && iconUrl.toLowerCase().includes('/gems/'))) {
+                        log(`Слот: ${slotId} | ЭТО ГЕМ, ПРОПУСКАЕМ!`);
+                        isGemItem = true;
+                    }
+
                     // Копируем содержимое тултипа (внутренний div с контентом)
                     const contentDiv = tooltipHtml.querySelector('.relative.whitespace-pre-wrap');
                     if (contentDiv) {
@@ -151,27 +209,28 @@
                         tooltipRaw = tooltipHtml.innerHTML;
                     }
 
-                    const h1 = tooltipHtml.querySelector('header h1');
-                    if (h1) {
-                        const text = h1.innerText.trim();
-                        const lines = text.split('\n');
-                        name = lines[0].trim();
-                    }
                     log(`Слот: ${slotId} | Имя из тултипа: "${name}" | Тултип захвачен`);
                 }
 
                 emulateUnhover(node);
                 await delay(30);
 
+                if (isGemItem) continue;
+
                 const itemData = {
                     inventoryId: slotId,
                     icon: iconUrl,
                     name: name,
-                    tooltip: tooltipRaw // Сохраняем сырой HTML тултипа
+                    tooltip: tooltipRaw
                 };
 
+                // Логика добавления: разрешаем до 18 джевелов
                 if (slotId === 'Flask') {
                     if (items.filter(item => item.inventoryId === 'Flask').length < 5) {
+                        items.push(itemData);
+                    }
+                } else if (slotId === 'Jewel' || slotId === 'ClusterJewel') {
+                    if (items.filter(item => item.inventoryId === 'Jewel' || item.inventoryId === 'ClusterJewel').length < 18) {
                         items.push(itemData);
                     }
                 } else if (!items.find(item => item.inventoryId === slotId)) {
