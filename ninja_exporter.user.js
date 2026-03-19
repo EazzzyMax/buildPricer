@@ -281,7 +281,79 @@
                 throw new Error("Не удалось извлечь предметы. Сайт мог изменить разметку.");
             }
 
-            const exportData = { items: items };
+            // [NEW] Умное извлечение имени билда
+            let buildName = "";
+            try {
+                log("Начинаем извлечение имени билда...");
+                // 1. Извлекаем Skill (из таблицы DPS)
+                let skillName = "";
+                const allH3 = Array.from(document.querySelectorAll('h3'));
+                log(`Найдено H3: ${allH3.length}`);
+
+                const skillH3 = allH3.find(h => {
+                    const txt = h.innerText.trim().toLowerCase();
+                    if (txt.includes('skill dps estimation')) return true;
+                    return false;
+                });
+
+                if (skillH3) {
+                    log("Найдено H3 'Skill DPS Estimation'");
+                    const sector = skillH3.closest('div');
+                    if (sector) {
+                        log("Найден контейнер секции DPS");
+                        const skillImg = sector.querySelector('table img[alt]');
+                        if (skillImg && skillImg.alt) {
+                            skillName = skillImg.alt;
+                            log(`Найдено имя скилла через ALT: "${skillName}"`);
+                        } else {
+                            log("Картинка с ALT не найдена, пробуем первый TD");
+                            const firstTd = sector.querySelector('table tbody td');
+                            if (firstTd) {
+                                skillName = firstTd.innerText.trim();
+                                log(`Найдено имя скилла через TD: "${skillName}"`);
+                            }
+                        }
+                    } else {
+                        log("ОШИБКА: Контейнер секции DPS не найден через closest('div')");
+                    }
+                } else {
+                    log("ОШИБКА: H3 с текстом 'Skill DPS Estimation' не найден. Список всех H3:");
+                    allH3.forEach((h, idx) => log(`  [${idx}] "${h.innerText.trim()}"`));
+                }
+
+                // 2. Извлекаем Level
+                let level = "";
+                const levelEl = Array.from(document.querySelectorAll('div, span')).find(el => el.innerText.includes('Level ') && /\d+/.test(el.innerText));
+                if (levelEl) {
+                    const match = levelEl.innerText.match(/Level\s+(\d+)/);
+                    if (match) {
+                        level = match[1];
+                        log(`Найден уровень: ${level}`);
+                    }
+                }
+
+                // 3. Извлекаем Имя персонажа (H1)
+                let charName = "";
+                const h1 = document.querySelector('h1');
+                if (h1) {
+                    charName = h1.innerText.trim();
+                    log(`Найдено имя персонажа: ${charName}`);
+                }
+
+                // Формируем результирующее имя
+                if (skillName || level || charName) {
+                    const s = skillName || 'Unknown';
+                    const l = level ? level + 'lvl' : '';
+                    const c = charName ? '(' + charName + ')' : '';
+                    buildName = `${s} ${l} ${c}`.replace(/\s+/g, ' ').trim();
+                    log(`Сформировано имя билда: "${buildName}"`);
+                }
+            } catch (e) { log("Ошибка извлечения имени:", e); }
+
+            const exportData = {
+                items: items,
+                name: buildName
+            };
             log("Итоговый JSON шмота:", exportData);
 
             await navigator.clipboard.writeText(JSON.stringify(exportData, null, 2));
