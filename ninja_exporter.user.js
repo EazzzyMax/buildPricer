@@ -99,17 +99,50 @@
                 if (validNodes.includes(item)) continue;
                 if (validNodes.some(v => v.contains(item))) continue;
 
-                // Проверяем родителей на наличие слов Jewel / Cluster
-                const context = item.closest('section, div.flex.flex-col, div[class*="gap-"]');
-                const contextText = context ? context.innerText || '' : '';
+                // [NEW] Поиск предметов вне основной сетки (например, джевелов в списках)
+                // 1. Сначала проверяем наличие иконки — предметы их всегда имеют, а статистика нет.
+                const comp = window.getComputedStyle(item);
+                const bgImage = item.style.backgroundImage || comp.backgroundImage || '';
+                const borderImage = item.style.borderImageSource || comp.borderImageSource || item.style.borderImage || '';
+                const hasImg = item.querySelector('img');
+                const hasIcon = bgImage.includes('url') || borderImage.includes('url') || hasImg;
+                if (!hasIcon) continue;
 
-                if (contextText.includes('Jewels') || contextText.includes('Cluster')) {
-                    item.dataset.forcedSlot = 'Jewel';
-                    validNodes.push(item);
+                // 2. Определяем категорию (Cluster/Base/Other)
+                let forced = null;
+                const ga = item.style.gridArea || '';
+
+                // Сначала пробуем по grid-area (для дерева пассивок)
+                if (ga.includes('Cluster')) forced = 'ClusterJewel';
+                else if (ga.includes('Jewel') || ga.includes('Passive')) forced = 'BaseJewel';
+
+                // Если по grid-area непонятно, ищем заголовок H3 выше по DOM
+                if (!forced) {
+                    let curr = item;
+                    while (curr && curr !== document.body && curr.parentElement) {
+                        // Если зашли в блок статистики, выходим
+                        if (curr.classList.contains('character-stats') || curr.tagName === 'ASIDE') break;
+
+                        let prev = curr.previousElementSibling;
+                        while (prev) {
+                            const h3 = (prev.tagName === 'H3') ? prev : prev.querySelector('h3');
+                            if (h3) {
+                                const txt = h3.innerText.toLowerCase();
+                                if (txt.includes('cluster')) forced = 'ClusterJewel';
+                                else if (txt.includes('base jewel')) forced = 'BaseJewel';
+                                else if (txt.includes('jewel')) forced = 'BaseJewel';
+                                else if (txt.includes('other')) forced = 'OtherJewel';
+                                break;
+                            }
+                            prev = prev.previousElementSibling;
+                        }
+                        if (forced) break;
+                        curr = curr.parentElement;
+                    }
                 }
-                // Или если сам элемент имеет в подсказке или стилях намек на джевел
-                else if (item.style.gridArea && (item.style.gridArea.includes('Jewel') || item.style.gridArea.includes('Passive'))) {
-                    item.dataset.forcedSlot = 'Jewel';
+
+                if (forced) {
+                    item.dataset.forcedSlot = forced;
                     validNodes.push(item);
                 }
             }
@@ -224,13 +257,19 @@
                     tooltip: tooltipRaw
                 };
 
-                // Логика добавления: разрешаем до 18 джевелов
+                // Логика добавления: разрешаем до 45 джевелов в сумме
                 if (slotId === 'Flask') {
                     if (items.filter(item => item.inventoryId === 'Flask').length < 5) {
                         items.push(itemData);
                     }
-                } else if (slotId === 'Jewel' || slotId === 'ClusterJewel') {
-                    if (items.filter(item => item.inventoryId === 'Jewel' || item.inventoryId === 'ClusterJewel').length < 18) {
+                } else if (slotId === 'Jewel' || slotId === 'ClusterJewel' || slotId === 'BaseJewel' || slotId === 'OtherJewel') {
+                    const totalJewels = items.filter(item =>
+                        item.inventoryId === 'Jewel' ||
+                        item.inventoryId === 'ClusterJewel' ||
+                        item.inventoryId === 'BaseJewel' ||
+                        item.inventoryId === 'OtherJewel'
+                    ).length;
+                    if (totalJewels < 45) {
                         items.push(itemData);
                     }
                 } else if (!items.find(item => item.inventoryId === slotId)) {

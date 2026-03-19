@@ -1091,8 +1091,20 @@
         <div class="section-title">Equipment & Flasks</div>
         <div class="equipment-grid" id="eq-grid"></div>
 
-        <div class="section-title">Jewels & Clusters</div>
-        <div class="jewels-grid" id="jewels-grid"></div>
+        <div id="clusters-container">
+            <div class="section-title">Cluster Jewels</div>
+            <div class="jewels-grid" id="clusters-grid"></div>
+        </div>
+
+        <div id="base-jewels-container">
+            <div class="section-title">Base Jewels</div>
+            <div class="jewels-grid" id="base-jewels-grid"></div>
+        </div>
+
+        <div id="other-jewels-container">
+            <div class="section-title">Other</div>
+            <div class="jewels-grid" id="other-jewels-grid"></div>
+        </div>
     </div>
 
     <div id="modal-container"></div>
@@ -1112,7 +1124,9 @@
         ];
 
         const FLASK_SLOTS = ['flask1', 'flask2', 'flask3', 'flask4', 'flask5'];
-        const JEWEL_SLOTS = Array.from({ length: 18 }, (_, i) => `jewel${i + 1}`);
+        const BASE_JEWEL_SLOTS = Array.from({ length: 18 }, (_, i) => `basejewel${i + 1}`);
+        const CLUSTER_SLOTS = Array.from({ length: 18 }, (_, i) => `cluster${i + 1}`);
+        const OTHER_JEWEL_SLOTS = Array.from({ length: 18 }, (_, i) => `otherjewel${i + 1}`);
 
         let items = JSON.parse(localStorage.getItem('poe_pricer_items_visual')) || {};
 
@@ -1297,25 +1311,42 @@
 
         function render() {
             const eqGrid = document.getElementById('eq-grid');
-            const jwGrid = document.getElementById('jewels-grid');
-            if (!eqGrid || !jwGrid) return;
+            if (!eqGrid) return;
 
+            // Clear all grids
             eqGrid.innerHTML = '';
-            jwGrid.innerHTML = '';
+            document.getElementById('clusters-grid').innerHTML = '';
+            document.getElementById('base-jewels-grid').innerHTML = '';
+            document.getElementById('other-jewels-grid').innerHTML = '';
 
+            // Render equipment (fixed slots)
             SLOTS.forEach(slot => {
                 eqGrid.appendChild(createSlot(slot.id, slot.label));
             });
 
-            FLASK_SLOTS.forEach((id, index) => {
-                eqGrid.appendChild(createSlot(id, `F${index + 1}`, true));
+            // Render flasks (Occupied + 1 extra, up to 5)
+            let lastFlask = -1;
+            FLASK_SLOTS.forEach((id, i) => { if (items[id]) lastFlask = i; });
+            FLASK_SLOTS.slice(0, Math.min(5, lastFlask + 2)).forEach((id, i) => {
+                eqGrid.appendChild(createSlot(id, `Flask ${i + 1}`, true));
             });
 
-            JEWEL_SLOTS.forEach((id, index) => {
-                jwGrid.appendChild(createSlot(id, `JEWEL ${index + 1}`));
+            // Render Jewel types (Occupied + 1 extra)
+            const jewelConfigs = [
+                { id: 'clusters-grid', slots: CLUSTER_SLOTS, label: 'CLUSTER' },
+                { id: 'base-jewels-grid', slots: BASE_JEWEL_SLOTS, label: 'BASE JEWEL' },
+                { id: 'other-jewels-grid', slots: OTHER_JEWEL_SLOTS, label: 'OTHER' }
+            ];
+
+            jewelConfigs.forEach(cfg => {
+                const gridEl = document.getElementById(cfg.id);
+                let lastIdx = -1;
+                cfg.slots.forEach((sid, i) => { if (items[sid]) lastIdx = i; });
+                cfg.slots.slice(0, lastIdx + 2).forEach((sid, i) => {
+                    gridEl.appendChild(createSlot(sid, `${cfg.label} ${i + 1}`));
+                });
             });
         }
-
         function createSlot(id, label, isFlask = false) {
             const item = items[id];
             const slotEl = document.createElement(item ? 'a' : 'div');
@@ -1427,10 +1458,13 @@
 
             items = {}; // Clear existing to prevent mixed items
             let currentFlaskSlot = 1;
-            let currentJewelSlot = 1;
+            let currentBaseJewelSlot = 1;
+            let currentClusterSlot = 1;
+            let currentOtherJewelSlot = 1;
 
             data.items.forEach(poeItem => {
                 const invId = (poeItem.inventoryId || '').toLowerCase();
+                const itemNameRaw = (poeItem.name || poeItem.typeLine || '').toLowerCase();
                 let slotId = poeToSlotMap[poeItem.inventoryId]; // Try exact match first
 
                 // Fallback for flasks
@@ -1439,10 +1473,27 @@
                     currentFlaskSlot++;
                 }
 
-                // Fallback for jewels (any jewel-like name)
-                if ((invId === 'jewel' || invId === 'clusterjewel' || invId.includes('passive')) && currentJewelSlot <= 18) {
-                    slotId = `jewel${currentJewelSlot}`;
-                    currentJewelSlot++;
+                // Differentiate Jewels and Clusters (trust the exporter's inventoryId)
+                if (invId === 'clusterjewel') {
+                    if (currentClusterSlot <= 18) {
+                        slotId = `cluster${currentClusterSlot}`;
+                        currentClusterSlot++;
+                    }
+                } else if (invId === 'basejewel') {
+                    if (currentBaseJewelSlot <= 18) {
+                        slotId = `basejewel${currentBaseJewelSlot}`;
+                        currentBaseJewelSlot++;
+                    }
+                } else if (invId === 'otherjewel') {
+                    if (currentOtherJewelSlot <= 18) {
+                        slotId = `otherjewel${currentOtherJewelSlot}`;
+                        currentOtherJewelSlot++;
+                    }
+                } else if (invId === 'jewel') { // Legacy support
+                    if (currentBaseJewelSlot <= 18) {
+                        slotId = `basejewel${currentBaseJewelSlot}`;
+                        currentBaseJewelSlot++;
+                    }
                 }
 
                 if (slotId) {
