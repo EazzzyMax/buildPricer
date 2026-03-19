@@ -38,23 +38,249 @@
             padding: 1rem 2rem;
         }
 
-        .header-import {
-            position: absolute;
+        /* Sidebar & Burger */
+        .burger-btn {
+            position: fixed;
             top: 15px;
             left: 20px;
+            background: rgba(20, 24, 31, 0.9);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 3001;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .burger-btn:hover {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 350px;
+            height: 100vh;
+            background: #0a0c10;
+            border-right: 1px solid var(--border-color);
+            z-index: 3000;
+            padding: 80px 25px 25px 25px;
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            box-shadow: 20px 0 50px rgba(0, 0, 0, 0.8);
+            user-select: none;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 2999;
+            display: none;
+        }
+
+        .sidebar.open+.sidebar-overlay {
+            display: block;
+        }
+
+        .profile-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
             gap: 10px;
-            z-index: 100;
+            padding-right: 5px;
+        }
+
+        .profile-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .profile-item:hover {
+            border-color: var(--accent-gold);
+        }
+
+        .profile-item.active {
+            border-color: var(--accent-gold);
+            background: rgba(200, 170, 110, 0.1);
+            box-shadow: inset 0 0 10px rgba(200, 170, 110, 0.05);
+        }
+
+        .profile-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .profile-date {
+            font-size: 10px;
+            color: var(--color-coolgrey-500);
+            opacity: 0.7;
+        }
+
+        .delete-profile {
+            color: #ef4444;
+            opacity: 0.5;
+            transition: all 0.2s;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .delete-profile:hover {
+            opacity: 1;
+        }
+
+        .delete-profile.confirming {
+            background: #ef4444;
+            color: #fff !important;
+            opacity: 1 !important;
+            border-radius: 4px;
+            padding: 2px 6px !important;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .delete-profile.disabled {
+            opacity: 0.1;
+            cursor: not-allowed;
+            pointer-events: none;
+            filter: grayscale(1);
+        }
+
+        .edit-profile {
+            color: var(--accent-gold);
+            opacity: 0.5;
+            transition: opacity 0.2s;
+            padding: 5px;
+            display: inline-block;
+            transform: scaleX(-1);
+            cursor: pointer;
+        }
+
+        .edit-profile:hover {
+            opacity: 1;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .rename-input {
+            background: #000;
+            border: 1px solid var(--accent-gold);
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            width: 180px;
+        }
+
+        .sidebar h3 {
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-import-box {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px dashed rgba(200, 170, 110, 0.3);
+        }
+
+        .sidebar-import-box .import-input {
+            width: 100% !important;
+            font-size: 13px;
+        }
+
+        .sidebar-import-box .import-btn {
+            width: 100%;
+            height: 40px;
+        }
+
+        .create-profile-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(200, 170, 110, 0.1);
+            border: 1px dashed var(--accent-gold);
+            color: var(--accent-gold);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .create-profile-btn:hover {
+            background: var(--accent-gold);
+            color: #000;
         }
 
         /* Inventory Layout */
         .inventory-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            align-items: center;
-            max-width: 1200px;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 60px;
+            justify-content: center;
+            align-items: flex-start;
             width: 100%;
+            padding: 20px;
+        }
+
+        .main-column,
+        .jewels-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 1072px;
+            /* Fixed width to match internal grids */
         }
 
         .equipment-grid {
@@ -148,6 +374,56 @@
 
         .jewels-grid .p-value {
             white-space: nowrap;
+        }
+
+        /* Total Bar */
+        .total-bar {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(13, 16, 23, 0.95);
+            border: 1px solid var(--accent-gold);
+            padding: 12px 60px;
+            border-radius: 12px;
+            display: flex;
+            gap: 60px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(200, 170, 110, 0.15);
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+            border-bottom-width: 3px;
+        }
+
+        .total-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .total-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            opacity: 0.8;
+        }
+
+        .total-value {
+            font-size: 26px;
+            color: var(--accent-gold);
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 0 15px rgba(200, 170, 110, 0.3);
+        }
+
+        .total-bar .currency-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
         }
 
         .section-title {
@@ -1045,11 +1321,22 @@
     <div id="notification-container"></div>
     <div id="item-tooltip-root"></div>
 
-    <div class="header-import">
-        <input type="text" id="import-url" class="import-input" style="width: 250px;"
-            placeholder="Вставьте код poe.ninja">
-        <button class="import-btn" onclick="importCharacter()" id="import-btn-text">Импорт</button>
+    <button class="burger-btn" onclick="toggleSidebar()">☰</button>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-import-box">
+            <h3>Импорт билда</h3>
+            <input type="text" id="import-url" class="import-input" placeholder="Вставьте код poe.ninja">
+            <button class="import-btn" onclick="importCharacter()" id="import-btn-text">Импортировать</button>
+        </div>
+
+        <h3>Профили</h3>
+        <button class="create-profile-btn" onclick="createNewProfile()">+ Новый профиль</button>
+        <div class="profile-list" id="profile-list">
+            <!-- Loaded via JS -->
+        </div>
     </div>
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
     <div id="floating-copy-icon">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
@@ -1060,19 +1347,50 @@
     </div>
 
     <div class="inventory-wrapper">
-        <div class="equipment-grid" id="eq-grid"></div>
-        <div class="flasks-grid" id="flasks-grid"></div>
-
-        <div id="clusters-container" style="margin-bottom: 1rem;">
-            <div class="jewels-grid" id="clusters-grid"></div>
+        <div class="main-column">
+            <div class="equipment-grid" id="eq-grid"></div>
+            <div class="flasks-grid" id="flasks-grid"></div>
         </div>
 
-        <div id="base-jewels-container" style="margin-bottom: 1rem;">
-            <div class="jewels-grid" id="base-jewels-grid"></div>
-        </div>
+        <div class="jewels-column">
+            <div id="clusters-container">
+                <div class="jewels-grid" id="clusters-grid"></div>
+            </div>
 
-        <div id="other-jewels-container">
-            <div class="jewels-grid" id="other-jewels-grid"></div>
+            <div id="base-jewels-container">
+                <div class="jewels-grid" id="base-jewels-grid"></div>
+            </div>
+
+            <div id="other-jewels-container">
+                <div class="jewels-grid" id="other-jewels-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="total-bar">
+        <div class="total-item">
+            <span class="total-label">Minimum</span>
+            <div class="total-value">
+                <span id="total-min">0</span>
+                <img src="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png"
+                    class="currency-icon">
+            </div>
+        </div>
+        <div class="total-item">
+            <span class="total-label" style="color: #60a5fa;">Good</span>
+            <div class="total-value">
+                <span id="total-good">0</span>
+                <img src="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png"
+                    class="currency-icon">
+            </div>
+        </div>
+        <div class="total-item">
+            <span class="total-label" style="color: #a855f7;">Perfect</span>
+            <div class="total-value">
+                <span id="total-perf">0</span>
+                <img src="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png"
+                    class="currency-icon">
+            </div>
         </div>
     </div>
 
@@ -1097,55 +1415,167 @@
         const CLUSTER_SLOTS = Array.from({ length: 18 }, (_, i) => `cluster${i + 1}`);
         const OTHER_JEWEL_SLOTS = Array.from({ length: 18 }, (_, i) => `otherjewel${i + 1}`);
 
-        let items = JSON.parse(localStorage.getItem('poe_pricer_items_visual')) || {};
-
-        const eqGrid = document.getElementById('eq-grid');
-        const modalContainer = document.getElementById('modal-container');
-        const importInput = document.getElementById('import-url');
-        const importBtn = document.getElementById('import-btn-text');
-
-        const editIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>`;
-        const currencyIcon = `<img src="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png" class="currency-icon">`;
-
-        const tooltipRoot = document.getElementById('item-tooltip-root');
+        // Profiles State
+        let profiles = JSON.parse(localStorage.getItem('poe_pricer_profiles_v3') || '[]');
+        let currentProfileId = localStorage.getItem('poe_current_profile_id_v3') || '';
+        let items = {};
 
         let isTooltipPinned = false;
         let _tooltipHideTimer = null;
+        const _cancelHide = () => { if (_tooltipHideTimer) { clearTimeout(_tooltipHideTimer); _tooltipHideTimer = null; } };
 
-        const pinIcon = `<svg viewBox="-3 -2.5 24 24" fill="currentColor"><path d="m7.374 12.268l-5.656 5.657A1 1 0 1 1 .303 16.51l5.657-5.656L1.718 6.61A6.992 6.992 0 0 1 7.9 4.67L11.617.954a2 2 0 0 1 2.828 0l2.829 2.828a2 2 0 0 1 0 2.829l-3.716 3.716a6.992 6.992 0 0 1-1.941 6.183l-4.243-4.242z"></path></svg>`;
+        // DOM Elements
+        const modalContainer = document.getElementById('modal-container');
+        const tooltipRoot = document.getElementById('item-tooltip-root');
+        const currencyIcon = `<img src="https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png" class="currency-icon">`;
+        const pinIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10h-8V2l-7 12h8v8l7-12z"/></svg>`;
 
-        window.toggleTooltipPin = function (e) {
-            e.stopPropagation();
-            isTooltipPinned = !isTooltipPinned;
-            const pinBtn = document.querySelector('.ninja-pin-btn');
-            if (pinBtn) {
-                pinBtn.classList.toggle('pinned', isTooltipPinned);
+        // Initial Load
+        if (profiles.length === 0) {
+            const defaultId = 'p_' + Date.now();
+            profiles.push({ id: defaultId, name: 'Default Build', items: {}, lastModified: Date.now() });
+            currentProfileId = defaultId;
+            saveProfiles();
+        }
+        loadCurrentProfile();
+
+        function loadCurrentProfile() {
+            const profile = profiles.find(p => p.id === currentProfileId) || profiles[0];
+            currentProfileId = profile.id;
+            items = profile.items || {};
+            localStorage.setItem('poe_current_profile_id_v3', currentProfileId);
+            render();
+            renderProfileList();
+        }
+
+        function saveProfiles() {
+            const idx = profiles.findIndex(p => p.id === currentProfileId);
+            if (idx !== -1) {
+                profiles[idx].items = items;
+                profiles[idx].lastModified = Date.now();
             }
-        };
+            localStorage.setItem('poe_pricer_profiles_v3', JSON.stringify(profiles));
+            localStorage.setItem('poe_current_profile_id_v3', currentProfileId);
+        }
 
-        // Unpin and hide when clicking outside the tooltip
-        document.addEventListener('click', (e) => {
-            if (isTooltipPinned && !tooltipRoot.contains(e.target)) {
-                isTooltipPinned = false;
-                scheduleHide();
+        function formatLastModified(ms) {
+            if (!ms) return '';
+            const d = new Date(ms);
+            return d.toLocaleString([], { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function renderProfileList() {
+            const list = document.getElementById('profile-list');
+            list.innerHTML = '';
+            profiles.forEach(p => {
+                const div = document.createElement('div');
+                div.className = `profile-item ${p.id === currentProfileId ? 'active' : ''}`;
+                div.onclick = () => switchProfile(p.id);
+                div.innerHTML = `
+                    <div class="profile-info">
+                        <span class="profile-name" id="name-span-${p.id}">${p.name}</span>
+                        <span class="profile-date">${formatLastModified(p.lastModified)}</span>
+                    </div>
+                    <div class="profile-actions">
+                        <span class="edit-profile" title="Переименовать" onclick="event.stopPropagation(); startRename('${p.id}')">✎</span>
+                        <span class="delete-profile ${profiles.length <= 1 ? 'disabled' : ''}" 
+                              title="${profiles.length <= 1 ? 'Нельзя удалить единственный билд' : 'Удалить'}" 
+                              id="del-${p.id}" 
+                              onclick="${profiles.length > 1 ? `event.stopPropagation(); deleteProfile('${p.id}', this)` : 'event.stopPropagation()'}">✕</span>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function startRename(id) {
+            const profile = profiles.find(p => p.id === id);
+            const span = document.getElementById(`name-span-${id}`);
+            if (!profile || !span) return;
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'rename-input';
+            input.value = profile.name;
+            input.onclick = (e) => e.stopPropagation();
+
+            input.onkeydown = (e) => {
+                if (e.key === 'Enter') {
+                    finishRename(id, input.value);
+                } else if (e.key === 'Escape') {
+                    renderProfileList();
+                }
+            };
+
+            input.onblur = () => {
+                finishRename(id, input.value);
+            };
+
+            span.replaceWith(input);
+            input.focus();
+            input.select();
+        }
+
+        function finishRename(id, newName) {
+            const profile = profiles.find(p => p.id === id);
+            if (profile && newName && newName.trim()) {
+                profile.name = newName.trim();
+                saveProfiles();
             }
-        });
+            renderProfileList();
+        }
 
-        function _cancelHide() {
-            if (_tooltipHideTimer) {
-                clearTimeout(_tooltipHideTimer);
-                _tooltipHideTimer = null;
+        function switchProfile(id) {
+            saveProfiles();
+            currentProfileId = id;
+            loadCurrentProfile();
+            toggleSidebar();
+        }
+
+        function deleteProfile(id, el) {
+            if (profiles.length <= 1) return alert("Нельзя удалить единственный профиль!");
+
+            if (el.classList.contains('confirming')) {
+                // Второе нажатие - удаляем
+                profiles = profiles.filter(p => p.id !== id);
+                if (currentProfileId === id) currentProfileId = profiles[0].id;
+                saveProfiles();
+                loadCurrentProfile();
+            } else {
+                // Первое нажатие - подсвечиваем на 5 секунд
+                el.classList.add('confirming');
+                el.innerText = 'DELETE?'; // Или просто '✕', но красным
+
+                setTimeout(() => {
+                    if (el && el.isConnected) {
+                        el.classList.remove('confirming');
+                        el.innerText = '✕';
+                    }
+                }, 5000);
             }
         }
 
+        function createNewProfile() {
+            saveProfiles();
+            const newId = 'p_' + Date.now();
+            const newName = 'Новый билд ' + (profiles.length + 1);
+            profiles.push({ id: newId, name: newName, items: {}, lastModified: Date.now() });
+            currentProfileId = newId;
+            saveProfiles();
+            loadCurrentProfile();
+            startRename(newId);
+        }
+
+
         function showItemTooltip(slotEl, id) {
             if (isTooltipPinned) return;
-
             const item = items[id];
             if (!item || !item.tooltip) return;
-
             _cancelHide();
-
             tooltipRoot.innerHTML = `
                 <div class="ninja-tooltip-wrapper">
                     <button class="ninja-pin-btn" onclick="toggleTooltipPin(event)" title="Pin tooltip">
@@ -1154,31 +1584,10 @@
                     ${item.tooltip}
                 </div>
             `;
-
-            // RECURSIVE TEXT WRAPPER: Makes every piece of text highlightable/copyable
-            const wrapTextNodes = (element) => {
-                const nodes = Array.from(element.childNodes);
-                for (let node of nodes) {
-                    if (node.nodeType === 3 && node.textContent.trim()) {
-                        // Prevent "triple nesting" by skipping wrapping if parent is already a dedicated span
-                        if (element.tagName === 'SPAN' && nodes.length === 1) continue;
-
-                        const span = document.createElement('span');
-                        span.textContent = node.textContent;
-                        node.replaceWith(span);
-                    } else if (node.nodeType === 1 && node.tagName !== 'SCRIPT' && node.tagName !== 'STYLE' && node.tagName !== 'BUTTON') {
-                        wrapTextNodes(node);
-                    }
-                }
-            };
             wrapTextNodes(tooltipRoot);
-
             tooltipRoot.style.display = 'block';
             tooltipRoot.style.pointerEvents = 'auto';
-
             const floatingIcon = document.getElementById('floating-copy-icon');
-
-            // Hover on tooltip itself keeps it alive
             tooltipRoot.onmouseenter = _cancelHide;
             tooltipRoot.onmouseleave = () => {
                 const highlighted = tooltipRoot.querySelectorAll('.ninja-copy-highlight');
@@ -1186,48 +1595,24 @@
                 floatingIcon.style.display = 'none';
                 scheduleHide();
             };
-
-            // Manage precise highlighting via mousemove
             tooltipRoot.onmousemove = function (e) {
                 const prev = tooltipRoot.querySelector('.ninja-copy-highlight');
                 if (prev) prev.classList.remove('ninja-copy-highlight');
-
-                if (!e.target ||
-                    e.target.tagName === 'SECTION' ||
-                    e.target.tagName === 'HEADER' ||
-                    e.target.tagName === 'ARTICLE' ||
-                    e.target.classList.contains('ninja-tooltip-wrapper') ||
-                    e.target.classList.contains('_item-body_1tb3h_1')
-                ) {
+                if (!e.target || e.target.tagName === 'SECTION' || e.target.tagName === 'HEADER' || e.target.tagName === 'ARTICLE' || e.target.classList.contains('ninja-tooltip-wrapper')) {
                     floatingIcon.style.display = 'none';
                     return;
                 }
-
                 if (e.target.innerText && e.target.innerText.trim()) {
                     if (e.target.children.length === 0 || (e.target.tagName === 'SPAN' && e.target.children.length === 1 && e.target.children[0].tagName === 'SPAN')) {
                         e.target.classList.add('ninja-copy-highlight');
                         floatingIcon.style.display = 'block';
                         floatingIcon.style.left = (e.clientX + 12) + 'px';
                         floatingIcon.style.top = (e.clientY - 18) + 'px';
-                    } else {
-                        floatingIcon.style.display = 'none';
-                    }
-                } else {
-                    floatingIcon.style.display = 'none';
-                }
+                    } else { floatingIcon.style.display = 'none'; }
+                } else { floatingIcon.style.display = 'none'; }
             };
-
-            // Handle clicking lines inside the tooltip to copy text
             tooltipRoot.onclick = function (e) {
                 if (isTooltipPinned && e.target.closest('.ninja-pin-btn')) return;
-
-                if (!e.target ||
-                    e.target.tagName === 'SECTION' ||
-                    e.target.tagName === 'HEADER' ||
-                    e.target.tagName === 'ARTICLE' ||
-                    e.target.classList.contains('_item-body_1tb3h_1')
-                ) return;
-
                 const textToCopy = e.target.innerText.trim();
                 if (textToCopy) {
                     navigator.clipboard.writeText(textToCopy).then(() => {
@@ -1235,34 +1620,50 @@
                     });
                 }
             };
-
             positionTooltip(slotEl);
         }
 
+        function wrapTextNodes(element) {
+            const nodes = Array.from(element.childNodes);
+            for (let node of nodes) {
+                if (node.nodeType === 3 && node.textContent.trim()) {
+                    if (element.tagName === 'SPAN' && nodes.length === 1) continue;
+                    const span = document.createElement('span');
+                    span.textContent = node.textContent;
+                    node.replaceWith(span);
+                } else if (node.nodeType === 1 && !['SCRIPT', 'STYLE', 'BUTTON'].includes(node.tagName)) {
+                    wrapTextNodes(node);
+                }
+            }
+        }
+
         function positionTooltip(slotEl) {
-            const MARGIN = 5; // gap between card and tooltip
+            const MARGIN = 5;
             const rect = slotEl.getBoundingClientRect();
             const tw = tooltipRoot.offsetWidth || 480;
             const th = tooltipRoot.offsetHeight || 400;
-
-            let x, y;
-
-            // Try right side first
-            if (rect.right + MARGIN + tw <= window.innerWidth) {
-                x = rect.right + MARGIN;
-            } else {
-                // Fall back to left side
-                x = rect.left - MARGIN - tw;
-            }
+            let x = rect.right + MARGIN;
+            if (x + tw > window.innerWidth) x = rect.left - MARGIN - tw;
             if (x < 0) x = MARGIN;
-
-            // Align top with card top, clamp to screen
-            y = rect.top;
+            let y = rect.top;
             if (y + th > window.innerHeight) y = window.innerHeight - th - MARGIN;
             if (y < 0) y = MARGIN;
-
             tooltipRoot.style.left = (x - 5) + 'px';
             tooltipRoot.style.top = (y - 5) + 'px';
+        }
+
+        function toggleTooltipPin(e) {
+            e.stopPropagation();
+            isTooltipPinned = !isTooltipPinned;
+            const pinBtn = tooltipRoot.querySelector('.ninja-pin-btn');
+            if (isTooltipPinned) {
+                pinBtn.classList.add('pinned');
+                tooltipRoot.style.pointerEvents = 'auto';
+            } else {
+                pinBtn.classList.remove('pinned');
+                tooltipRoot.style.pointerEvents = 'none';
+                scheduleHide();
+            }
         }
 
         function scheduleHide() {
@@ -1271,30 +1672,20 @@
                 tooltipRoot.style.display = 'none';
                 tooltipRoot.style.pointerEvents = 'none';
                 _tooltipHideTimer = null;
-            }, 80); // small delay so cursor can cross to the tooltip
-        }
-
-        function hideItemTooltip() {
-            scheduleHide();
+            }, 80);
         }
 
         function render() {
             const eqGrid = document.getElementById('eq-grid');
             if (!eqGrid) return;
-
-            // Clear all grids
             eqGrid.innerHTML = '';
             document.getElementById('flasks-grid').innerHTML = '';
             document.getElementById('clusters-grid').innerHTML = '';
             document.getElementById('base-jewels-grid').innerHTML = '';
             document.getElementById('other-jewels-grid').innerHTML = '';
 
-            // Render equipment (fixed slots)
-            SLOTS.forEach(slot => {
-                eqGrid.appendChild(createSlot(slot.id, slot.label));
-            });
+            SLOTS.forEach(slot => eqGrid.appendChild(createSlot(slot.id, slot.label)));
 
-            // Render flasks (Occupied + 1 extra, up to 5)
             const flasksGrid = document.getElementById('flasks-grid');
             let lastFlask = -1;
             FLASK_SLOTS.forEach((id, i) => { if (items[id]) lastFlask = i; });
@@ -1302,13 +1693,11 @@
                 flasksGrid.appendChild(createSlot(id, `Flask ${i + 1}`, true));
             });
 
-            // Render Jewel types (Occupied + 1 extra)
             const jewelConfigs = [
                 { id: 'clusters-grid', slots: CLUSTER_SLOTS, label: 'CLUSTER' },
                 { id: 'base-jewels-grid', slots: BASE_JEWEL_SLOTS, label: 'BASE JEWEL' },
                 { id: 'other-jewels-grid', slots: OTHER_JEWEL_SLOTS, label: 'OTHER' }
             ];
-
             jewelConfigs.forEach(cfg => {
                 const gridEl = document.getElementById(cfg.id);
                 let lastIdx = -1;
@@ -1317,6 +1706,23 @@
                     gridEl.appendChild(createSlot(sid, `${cfg.label} ${i + 1}`));
                 });
             });
+            updateTotals();
+        }
+
+        function updateTotals() {
+            let tMin = 0, tGood = 0, tPerf = 0;
+            Object.values(items).forEach(it => {
+                const m = parseFloat(it.min) || 0;
+                const g = parseFloat(it.good) || m;
+                const p = parseFloat(it.perfect) || g;
+                tMin += m;
+                tGood += g;
+                tPerf += p;
+            });
+
+            document.getElementById('total-min').innerText = Math.round(tMin * 10) / 10;
+            document.getElementById('total-good').innerText = Math.round(tGood * 10) / 10;
+            document.getElementById('total-perf').innerText = Math.round(tPerf * 10) / 10;
         }
         function createSlot(id, label, isFlask = false) {
             const item = items[id];
@@ -1325,24 +1731,20 @@
             if (item) {
                 slotEl.href = item.link || '#';
                 slotEl.target = '_blank';
-                // Тултипы теперь на самом слоте, чтобы работали сквозь оверлей
                 slotEl.onmouseenter = () => showItemTooltip(slotEl, id);
                 slotEl.onmouseleave = () => scheduleHide();
             } else {
                 slotEl.onclick = () => showEdit(id);
             }
             slotEl.setAttribute('data-slot', id);
-
-            // Если есть предмет, показываем его имя в лейбле, если нет - название слота
             const displayLabel = item && item.name ? item.name : label;
             let content = `<span class="slot-label" style="${item && item.name ? 'color:#fff; opacity:1;' : ''}">${displayLabel}</span>`;
-
             if (item) {
                 const hasPrice = item.min || item.good || item.perfect;
                 content += `
                     <div class="hover-overlay">
-                        <button class="overlay-btn link-action" ${item.link ? `onclick="event.preventDefault(); event.stopPropagation(); window.open('${item.link}', '_blank')"` : 'disabled'} >Open Trade Link</button>
-                        <button class="overlay-btn edit-action" onclick="event.preventDefault(); event.stopPropagation(); showEdit('${id}')">Edit</button>
+                        <button class="overlay-btn link-action" ${item.link ? `onclick="event.preventDefault(); event.stopPropagation(); window.open('${item.link}', '_blank')"` : 'disabled'} style="${!item.link ? 'opacity:0.3; cursor:not-allowed;' : ''}">Трейд ссылка</button>
+                        <button class="overlay-btn edit-action" onclick="event.preventDefault(); event.stopPropagation(); showEdit('${id}')">Редактировать</button>
                     </div>
                     <div class="slot-content">
                         ${item.icon ? `<img src="${item.icon}" class="item-icon">` : '<div class="icon-placeholder"></div>'}
@@ -1351,16 +1753,11 @@
                                 ${renderPrice('MIN', item.min)}
                                 ${renderPrice('GOOD', item.good)}
                                 ${renderPrice('PERF', item.perfect)}
-                            ` : `
-                                <button class="inline-edit-btn" onclick="event.preventDefault(); event.stopPropagation(); showEdit('${id}')">ADD PRICE</button>
-                            `}
+                            ` : `<button class="inline-edit-btn" onclick="event.preventDefault(); event.stopPropagation(); showEdit('${id}')">ДОБАВИТЬ ЦЕНУ</button>`}
                         </div>
                     </div>
                 `;
-            } else {
-                content += `<span class="plus">+</span>`;
-            }
-
+            } else { content += `<span class="plus">+</span>`; }
             slotEl.innerHTML = content;
             return slotEl;
         }
@@ -1371,33 +1768,66 @@
         }
 
         function importCharacter() {
-            const inputData = importInput.value.trim();
-            if (!inputData) {
-                return alert("Вставьте скопированный код с poe.ninja (от нашего расширения)");
-            }
-
+            const jsonText = document.getElementById('import-url').value;
+            if (!jsonText) return;
             try {
-                // Пытаемся распарсить вставленный JSON
-                let data;
-                try {
-                    data = JSON.parse(inputData);
-                } catch (parseError) {
-                    throw new Error("Неверный формат кода. Убедитесь, что вы вставили именно скопированный JSON-шмот с poe.ninja, а не ссылку.");
+                saveProfiles(); // Save the PREVIOUS current profile first
+                const data = JSON.parse(jsonText);
+                const poeItems = data.items || [];
+                const newId = 'p_' + Date.now();
+                const newName = `Build ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+                const newItems = {};
+                processImportedData(poeItems, newItems);
+
+                profiles.push({ id: newId, name: newName, items: newItems, lastModified: Date.now() });
+                currentProfileId = newId;
+
+                // localStorage sync for the list itself
+                localStorage.setItem('poe_pricer_profiles_v3', JSON.stringify(profiles));
+                loadCurrentProfile(); // this will set 'items' correctly to newItems
+
+                document.getElementById('import-url').value = '';
+                showNotification('Imported as new profile!');
+                toggleSidebar();
+            } catch (err) { alert('Import error! Check JSON.'); }
+        }
+
+        function processImportedData(poeItems, target) {
+            const map = {
+                'helm': 'head', 'bodyarmour': 'body', 'gloves': 'gloves',
+                'boots': 'boots', 'amulet': 'amulet', 'ring': 'ring1',
+                'ring2': 'ring2', 'weapon': 'weapon1', 'offhand': 'offhand', 'belt': 'belt'
+            };
+            let cC = 1, cB = 1, cO = 1, cF = 1;
+
+            poeItems.forEach(pi => {
+                const invId = (pi.inventoryId || '').toLowerCase();
+                let sid = map[invId];
+
+                // Special handling for Ring if multiple items have 'Ring' id
+                if (invId === 'ring' && target['ring1']) {
+                    sid = 'ring2';
                 }
 
-                if (!data || !data.items || !Array.isArray(data.items)) {
-                    throw new Error("Не найден массив предметов в скопированных данных.");
+                if (invId === 'flask' && cF <= 5) sid = `flask${cF++}`;
+                else if (invId === 'clusterjewel' && cC <= 18) sid = `cluster${cC++}`;
+                else if (invId === 'basejewel' && cB <= 18) sid = `basejewel${cB++}`;
+                else if (invId === 'otherjewel' && cO <= 18) sid = `otherjewel${cO++}`;
+
+                if (sid) {
+                    let name = pi.name || pi.typeLine;
+                    if (name) name = name.replace(/<<set:[^>]+>>/g, '');
+                    target[sid] = {
+                        name: name || 'Unknown',
+                        icon: pi.icon || '',
+                        tooltip: pi.tooltip || '',
+                        min: '',
+                        good: '',
+                        perfect: '',
+                        link: ''
+                    };
                 }
-
-                // Передаем распарсенные предметы в отрисовщик
-                processImportedData(data);
-
-                importInput.value = '';
-                showNotification("Импорт завершен успешно!");
-            } catch (err) {
-                console.error(err);
-                alert("Ошибка при импорте: " + err.message);
-            }
+            });
         }
 
         function showNotification(text) {
@@ -1406,130 +1836,26 @@
             note.className = 'notification';
             note.innerText = text;
             container.appendChild(note);
-
-            setTimeout(() => {
-                note.classList.add('fade-out');
-                setTimeout(() => note.remove(), 300);
-            }, 3000);
-        }
-
-        function processImportedData(data) {
-            const poeToSlotMap = {
-                'Weapon': 'weapon1',
-                'Offhand': 'offhand',
-                'Helm': 'head',
-                'BodyArmour': 'body',
-                'Gloves': 'gloves',
-                'Boots': 'boots',
-                'Amulet': 'amulet',
-                'Ring': 'ring1',
-                'Ring2': 'ring2',
-                'Belt': 'belt'
-            };
-
-            items = {}; // Clear existing to prevent mixed items
-            let currentFlaskSlot = 1;
-            let currentBaseJewelSlot = 1;
-            let currentClusterSlot = 1;
-            let currentOtherJewelSlot = 1;
-
-            data.items.forEach(poeItem => {
-                const invId = (poeItem.inventoryId || '').toLowerCase();
-                const itemNameRaw = (poeItem.name || poeItem.typeLine || '').toLowerCase();
-                let slotId = poeToSlotMap[poeItem.inventoryId]; // Try exact match first
-
-                // Fallback for flasks
-                if (invId === 'flask' && currentFlaskSlot <= 5) {
-                    slotId = `flask${currentFlaskSlot}`;
-                    currentFlaskSlot++;
-                }
-
-                // Differentiate Jewels and Clusters (trust the exporter's inventoryId)
-                if (invId === 'clusterjewel') {
-                    if (currentClusterSlot <= 18) {
-                        slotId = `cluster${currentClusterSlot}`;
-                        currentClusterSlot++;
-                    }
-                } else if (invId === 'basejewel') {
-                    if (currentBaseJewelSlot <= 18) {
-                        slotId = `basejewel${currentBaseJewelSlot}`;
-                        currentBaseJewelSlot++;
-                    }
-                } else if (invId === 'otherjewel') {
-                    if (currentOtherJewelSlot <= 18) {
-                        slotId = `otherjewel${currentOtherJewelSlot}`;
-                        currentOtherJewelSlot++;
-                    }
-                } else if (invId === 'jewel') { // Legacy support
-                    if (currentBaseJewelSlot <= 18) {
-                        slotId = `basejewel${currentBaseJewelSlot}`;
-                        currentBaseJewelSlot++;
-                    }
-                }
-
-                if (slotId) {
-                    // Cleanup PoE markup like <<set:MS>><<set:M>> from names 
-                    let itemName = poeItem.name ? poeItem.name : poeItem.typeLine;
-                    if (itemName) itemName = itemName.replace(/<<set:[^>]+>>/g, '');
-
-                    items[slotId] = {
-                        name: itemName || 'Unknown Item',
-                        icon: poeItem.icon || '',
-                        tooltip: poeItem.tooltip || '', // Загружаем тултип
-                        min: '',
-                        good: '',
-                        perfect: '',
-                        link: ''
-                    };
-                }
-            });
-
-            localStorage.setItem('poe_pricer_items_visual', JSON.stringify(items));
-            render();
+            setTimeout(() => { note.classList.add('fade-out'); setTimeout(() => note.remove(), 300); }, 3000);
         }
 
         function showEdit(id) {
             const item = items[id] || { name: '', icon: '', min: '', good: '', perfect: '', link: '' };
-            const slotName = SLOTS.find(s => s.id === id)?.label || id.toUpperCase();
-
             modalContainer.innerHTML = `
                 <div class="modal">
                     <div class="edit-form">
-                        <h2>${slotName}</h2>
-                        
                         <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px;">
-                            <div class="field">
-                                <label>Название</label>
-                                <input type="text" id="fm-name" placeholder="Название предмета" value="${item.name}" autofocus>
-                            </div>
-                            <div class="field">
-                                <label>Иконка (ссылка)</label>
-                                <input type="text" id="fm-icon" placeholder="https://..." value="${item.icon || ''}">
-                            </div>
+                            <div class="field"><label>Name</label><input type="text" id="fm-name" value="${item.name}" autofocus></div>
+                            <div class="field"><label>Icon URL</label><input type="text" id="fm-icon" value="${item.icon || ''}"></div>
                         </div>
-                        
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-                            <div class="field">
-                                <label>Цена MIN</label>
-                                <input type="text" id="fm-min" placeholder="0" value="${item.min}">
-                            </div>
-                            <div class="field">
-                                <label>Цена GOOD</label>
-                                <input type="text" id="fm-good" placeholder="0" value="${item.good}">
-                            </div>
-                            <div class="field">
-                                <label>Цена PERFECT</label>
-                                <input type="text" id="fm-perf" placeholder="0" value="${item.perfect}">
-                            </div>
+                            <div class="field"><label>MIN</label><input type="text" id="fm-min" value="${item.min}"></div>
+                            <div class="field"><label>GOOD</label><input type="text" id="fm-good" value="${item.good}"></div>
+                            <div class="field"><label>PERFECT</label><input type="text" id="fm-perf" value="${item.perfect}"></div>
                         </div>
-                        
-                        <div class="field">
-                            <label>Трейд ссылка</label>
-                            <input type="text" id="fm-link" placeholder="https://..." value="${item.link}">
-                        </div>
-
+                        <div class="field"><label>Trade link</label><input type="text" id="fm-link" value="${item.link}"></div>
                         <div class="actions">
-                            <button class="btn btn-delete" onclick="deleteItem('${id}')" style="${items[id] ? '' : 'visibility:hidden'}">🗑</button>
+                            <button class="btn btn-delete" title="Удалить предмет" onclick="deleteItem('${id}')" style="${items[id] ? '' : 'visibility:hidden'}">🗑</button>
                             <button class="btn btn-cancel" onclick="closeModal()">Отмена</button>
                             <button class="btn btn-save" onclick="saveItem('${id}')">Сохранить</button>
                         </div>
@@ -1539,38 +1865,13 @@
         }
 
         window.saveItem = function (id) {
-            items[id] = {
-                ...items[id], // Сохраняем тултип, если он был
-                name: document.getElementById('fm-name').value || 'Unknown Item',
-                icon: document.getElementById('fm-icon').value,
-                min: document.getElementById('fm-min').value,
-                good: document.getElementById('fm-good').value,
-                perfect: document.getElementById('fm-perf').value,
-                link: document.getElementById('fm-link').value
-            };
-            localStorage.setItem('poe_pricer_items_visual', JSON.stringify(items));
-            closeModal();
-            render();
+            items[id] = { ...items[id], name: document.getElementById('fm-name').value, icon: document.getElementById('fm-icon').value, min: document.getElementById('fm-min').value, good: document.getElementById('fm-good').value, perfect: document.getElementById('fm-perf').value, link: document.getElementById('fm-link').value };
+            saveProfiles(); render(); closeModal();
         };
 
-        window.deleteItem = function (id) {
-            delete items[id];
-            localStorage.setItem('poe_pricer_items_visual', JSON.stringify(items));
-            closeModal();
-            render();
-        };
-
-        window.closeModal = function () {
-            modalContainer.innerHTML = '';
-        };
-
-        // Close on ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
-
+        window.deleteItem = function (id) { delete items[id]; saveProfiles(); render(); closeModal(); };
+        window.closeModal = () => modalContainer.innerHTML = '';
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
         render();
     </script>
 </body>
