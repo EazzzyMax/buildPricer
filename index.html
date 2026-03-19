@@ -38,6 +38,26 @@
             padding: 1rem 2rem;
         }
 
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0c10;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2a2d35;
+            border-radius: 10px;
+            border: 2px solid #0a0c10;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f444e;
+        }
+
         /* Sidebar & Burger */
         .burger-btn {
             position: fixed;
@@ -73,7 +93,8 @@
             background: #0a0c10;
             border-right: 1px solid var(--border-color);
             z-index: 3000;
-            padding: 80px 25px 25px 25px;
+            padding: 80px 0 25px 25px;
+            /* Remove right padding */
             transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
@@ -102,10 +123,13 @@
         .profile-list {
             flex-grow: 1;
             overflow-y: auto;
+            scrollbar-gutter: stable;
+            /* Reserve space to prevent tiles from shrinking */
             display: flex;
             flex-direction: column;
             gap: 10px;
-            padding-right: 5px;
+            padding-right: 8px;
+            /* Balanced gap for the thumb */
         }
 
         .profile-item {
@@ -217,6 +241,7 @@
             font-size: 12px;
             letter-spacing: 2px;
             margin-bottom: 5px;
+            margin-right: 25px;
         }
 
         .sidebar-import-box {
@@ -227,6 +252,7 @@
             background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
             border: 1px dashed rgba(200, 170, 110, 0.3);
+            margin-right: 25px;
         }
 
         .sidebar-import-box .import-input {
@@ -240,7 +266,7 @@
         }
 
         .create-profile-btn {
-            width: 100%;
+            width: calc(100% - 25px);
             padding: 12px;
             background: rgba(200, 170, 110, 0.1);
             border: 1px dashed var(--accent-gold);
@@ -307,7 +333,7 @@
 
         .jewels-grid {
             display: grid;
-            grid-template-columns: repeat(4, 262px);
+            grid-template-columns: repeat(5, 208px);
             gap: 8px;
             justify-content: center;
             width: 1072px;
@@ -315,66 +341,14 @@
         }
 
         .jewels-grid .slot {
-            width: 262px;
-            height: 100px;
+            width: 208px;
+            height: 160px;
             padding: 8px 12px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .jewels-grid .slot-label {
-            position: static;
-            font-size: 11px;
-            color: var(--accent-gold);
-            height: auto;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: block;
-            text-align: left;
-            margin-bottom: 2px;
-            opacity: 1;
-        }
-
-        .jewels-grid .slot-content {
-            padding: 0;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 10px;
-            height: 60px;
-        }
-
-        .jewels-grid .item-icon {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            margin: 0;
-            flex-shrink: 0;
-        }
-
-        .jewels-grid .prices {
-            display: flex;
-            flex-direction: row;
-            gap: 8px;
-            align-items: center;
-            margin: 0;
-            min-height: auto;
-            flex-grow: 1;
-        }
-
-        .jewels-grid .price-line {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1px;
-            min-width: 55px;
-        }
-
-        .jewels-grid .p-value {
-            white-space: nowrap;
-        }
 
         /* Total Bar */
         .total-bar {
@@ -463,8 +437,9 @@
             box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
         }
 
-        .slot:hover {
-            border-color: var(--accent-gold);
+        .slot:hover,
+        .slot.editing {
+            border-color: #888;
             background: var(--bg-card-hover);
             transform: translateY(-4px);
             z-index: 10;
@@ -491,15 +466,6 @@
             text-overflow: ellipsis;
         }
 
-        .jewels-grid .slot {
-            height: 120px;
-        }
-
-        .jewels-grid .item-icon {
-            max-width: 80px;
-            max-height: 80px;
-            margin: auto;
-        }
 
         .slot-content {
             padding: 30px 0 0 0;
@@ -598,7 +564,97 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            line-height: 1.1;
             gap: 1px;
+            transition: opacity 0.2s;
+        }
+
+        .price-line.empty {
+            opacity: 0.3;
+            filter: grayscale(1);
+        }
+
+        /* Inline Edit Styles */
+        .inline-edit-container {
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 10, 12, 0.95);
+            display: flex;
+            flex-direction: column;
+            padding: 8px;
+            z-index: 50;
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--accent-gold);
+            border-radius: inherit;
+        }
+
+        .inline-edit-container label {
+            font-size: 8px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        .inline-edit-fields {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .inline-input {
+            background: #1a1a1c;
+            border: 1px solid #333;
+            color: #fff;
+            font-size: 11px;
+            padding: 4px;
+            width: 100%;
+            border-radius: 3px;
+        }
+
+        .inline-input:focus {
+            border-color: var(--accent-gold);
+            outline: none;
+        }
+
+        .inline-link-field {
+            margin-bottom: 8px;
+        }
+
+        .inline-actions {
+            display: flex;
+            gap: 6px;
+            margin-top: auto;
+        }
+
+        .inline-save-btn,
+        .inline-cancel-btn {
+            flex: 1;
+            padding: 5px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 3px;
+            border: none;
+        }
+
+        .inline-save-btn {
+            background: #444;
+            color: #fff;
+            border: 1px solid #666;
+        }
+
+        .inline-save-btn:hover {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        .inline-cancel-btn {
+            background: #222;
+            color: #888;
+            border: 1px solid #333;
         }
 
         .p-label {
@@ -685,70 +741,60 @@
             height: auto;
         }
 
-        /* Hover Overlay for Slots */
-        .hover-overlay {
+        /* Centered Actions on Hover */
+        .slot-actions {
             position: absolute;
-            inset: 0;
-            background: rgba(10, 12, 16, 0.4);
-            /* Чуть светлее */
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            top: 25px;
+            /* Below the label */
+            bottom: 40px;
+            /* Above the prices */
+            left: 0;
+            right: 0;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            opacity: 0;
-            transition: all 0.3s ease;
+            gap: 15px;
             z-index: 50;
-            /* Ниже тултипа */
+            opacity: 0;
+            transition: all 0.2s ease;
+            background: none;
+            backdrop-filter: none;
+            border-radius: inherit;
             pointer-events: none;
         }
 
-        .slot:not(.empty):hover .hover-overlay {
+        .slot:hover .slot-actions,
+        .slot.editing .slot-actions {
             opacity: 1;
             pointer-events: auto;
         }
 
-        .overlay-btn {
-            width: 180px;
-            height: 50px;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
+        .action-icon {
+            width: 44px;
+            height: 44px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            color: #fff;
+            font-size: 20px;
+            border-radius: 6px;
+            background: var(--bg-card);
+            border: 1px solid #444;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Inter', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
-        .overlay-btn.link-action {
-            background-color: var(--accent-gold);
-            color: #000;
+        .action-icon:hover {
+            color: var(--accent-gold);
+            border-color: var(--accent-gold);
+            transform: scale(1.1);
         }
 
-        .overlay-btn.link-action:hover:not(:disabled) {
-            background-color: #ffd700;
-            box-shadow: 0 0 15px rgba(200, 170, 110, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .overlay-btn.link-action:disabled {
-            background-color: #2e3340;
-            color: #555;
+        .action-icon.disabled {
+            opacity: 0.2;
             cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        .overlay-btn.edit-action {
-            background-color: #1a1f26;
-            color: #fff;
-            border: 1px solid var(--accent-gold);
+            pointer-events: none;
         }
 
         .overlay-btn.edit-action:hover {
@@ -1263,6 +1309,12 @@
             filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.8));
             margin-bottom: auto;
             /* Центрируем иконку в оставшемся пространстве */
+            transition: filter 0.2s;
+        }
+
+        .slot:hover .item-icon,
+        .slot.editing .item-icon {
+            filter: blur(4px) drop-shadow(0 0 5px rgba(0, 0, 0, 0.8));
         }
 
         /* Notifications */
@@ -1328,6 +1380,9 @@
             <h3>Импорт билда</h3>
             <input type="text" id="import-url" class="import-input" placeholder="Вставьте код poe.ninja">
             <button class="import-btn" onclick="importCharacter()" id="import-btn-text">Импортировать</button>
+            <button class="export-btn" onclick="exportCurrentProfile()"
+                style="margin-top: 10px; width: 100%; height: 40px; background: #2a2d35; border: 1px solid #444; color: #aaa; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 700; transition: all 0.2s;">Экспортировать
+                текущий</button>
         </div>
 
         <h3>Профили</h3>
@@ -1417,11 +1472,15 @@
 
         // Profiles State
         let profiles = JSON.parse(localStorage.getItem('poe_pricer_profiles_v3') || '[]');
+        let trash = JSON.parse(localStorage.getItem('poe_pricer_trash_v3') || '[]');
+        let isTrashExpanded = false;
         let currentProfileId = localStorage.getItem('poe_current_profile_id_v3') || '';
         let items = {};
 
         let isTooltipPinned = false;
         let _tooltipHideTimer = null;
+        let editingPriceField = null; // "slotId-field"
+        let editingLinkField = null; // "slotId"
         const _cancelHide = () => { if (_tooltipHideTimer) { clearTimeout(_tooltipHideTimer); _tooltipHideTimer = null; } };
 
         // DOM Elements
@@ -1458,6 +1517,10 @@
             localStorage.setItem('poe_current_profile_id_v3', currentProfileId);
         }
 
+        function saveTrash() {
+            localStorage.setItem('poe_pricer_trash_v3', JSON.stringify(trash));
+        }
+
         function formatLastModified(ms) {
             if (!ms) return '';
             const d = new Date(ms);
@@ -1490,6 +1553,47 @@
                 `;
                 list.appendChild(div);
             });
+
+            // Trash Section
+            if (trash.length > 0) {
+                const trashHeader = document.createElement('h3');
+                trashHeader.style.marginTop = '20px';
+                trashHeader.style.fontSize = '12px';
+                trashHeader.style.color = '#666';
+                trashHeader.style.cursor = 'pointer';
+                trashHeader.style.userSelect = 'none';
+                trashHeader.style.marginRight = '25px'; // Adhere to sidebar margin
+                trashHeader.innerHTML = `НЕДАВНО УДАЛЕННЫЕ ${isTrashExpanded ? '▼' : '▶'}`;
+                trashHeader.onclick = () => {
+                    isTrashExpanded = !isTrashExpanded;
+                    renderProfileList();
+                };
+                list.appendChild(trashHeader);
+
+                if (isTrashExpanded) {
+                    trash.forEach((t, i) => {
+                        const div = document.createElement('div');
+                        div.className = 'profile-item';
+                        div.style.opacity = '0.5';
+                        div.innerHTML = `
+                            <span style="flex:1; cursor:default;">${t.name}</span>
+                            <button class="btn btn-save" style="padding:2px 8px; font-size:10px;" onclick="restoreProfile(${i})">Восстановить</button>
+                        `;
+                        list.appendChild(div);
+                    });
+                }
+            }
+        }
+
+        function restoreProfile(index) {
+            const restored = trash.splice(index, 1)[0];
+            if (restored) {
+                profiles.push(restored);
+                saveTrash();
+                saveProfiles();
+                renderProfileList();
+                showNotification(`Восстановлен: ${restored.name}`);
+            }
         }
 
         function startRename(id) {
@@ -1541,10 +1645,21 @@
 
             if (el.classList.contains('confirming')) {
                 // Второе нажатие - удаляем
+                const deleted = profiles.find(p => p.id === id);
+                if (deleted) {
+                    trash.unshift(deleted);
+                    if (trash.length > 10) trash.pop();
+                    saveTrash();
+                }
+
                 profiles = profiles.filter(p => p.id !== id);
-                if (currentProfileId === id) currentProfileId = profiles[0].id;
+                if (currentProfileId === id) {
+                    currentProfileId = profiles[0].id;
+                    loadCurrentProfile();
+                } else {
+                    renderProfileList();
+                }
                 saveProfiles();
-                loadCurrentProfile();
             } else {
                 // Первое нажатие - подсвечиваем на 5 секунд
                 el.classList.add('confirming');
@@ -1560,12 +1675,18 @@
         }
 
         function createNewProfile() {
-            saveProfiles();
+            saveProfiles(); // Save the CURRENT profile first
             const newId = 'p_' + Date.now();
             const newName = 'Новый билд ' + (profiles.length + 1);
-            profiles.push({ id: newId, name: newName, items: {}, lastModified: Date.now() });
+
+            // Create New Empty items object
+            const newItems = {};
+            profiles.push({ id: newId, name: newName, items: newItems, lastModified: Date.now() });
+
             currentProfileId = newId;
-            saveProfiles();
+            items = newItems; // Sync the global items to the new empty object immediately
+
+            saveProfiles(); // Persist the list and the new current state
             loadCurrentProfile();
             startRename(newId);
         }
@@ -1726,45 +1847,172 @@
         }
         function createSlot(id, label, isFlask = false) {
             const item = items[id];
-            const slotEl = document.createElement(item ? 'a' : 'div');
-            slotEl.className = `slot ${!item ? 'empty' : ''} ${isFlask ? 'flask-slot' : ''}`;
+            const isPriceEditing = editingPriceField && editingPriceField.startsWith(`${id}-`);
+            const isLinkEditing = editingLinkField === id;
+            const isAnyEditing = isPriceEditing || isLinkEditing;
+
+            const slotEl = document.createElement('div');
+            slotEl.className = `slot ${!item ? 'empty' : ''} ${isFlask ? 'flask-slot' : ''} ${isAnyEditing ? 'editing' : ''}`;
+
             if (item) {
-                slotEl.href = item.link || '#';
-                slotEl.target = '_blank';
                 slotEl.onmouseenter = () => showItemTooltip(slotEl, id);
                 slotEl.onmouseleave = () => scheduleHide();
             } else {
                 slotEl.onclick = () => showEdit(id);
             }
+
             slotEl.setAttribute('data-slot', id);
             const displayLabel = item && item.name ? item.name : label;
+
             let content = `<span class="slot-label" style="${item && item.name ? 'color:#fff; opacity:1;' : ''}">${displayLabel}</span>`;
+
             if (item) {
-                const hasPrice = item.min || item.good || item.perfect;
+                const isLinkEditing = editingLinkField === id;
+                const linkIcon = item.link ? '🔗' : '➕';
+                const linkTitle = item.link ? 'Открыть ссылку' : 'Добавить ссылку';
+
                 content += `
-                    <div class="hover-overlay">
-                        <button class="overlay-btn link-action" ${item.link ? `onclick="event.preventDefault(); event.stopPropagation(); window.open('${item.link}', '_blank')"` : 'disabled'} style="${!item.link ? 'opacity:0.3; cursor:not-allowed;' : ''}">Трейд ссылка</button>
-                        <button class="overlay-btn edit-action" onclick="event.preventDefault(); event.stopPropagation(); showEdit('${id}')">Редактировать</button>
+                    <div class="slot-actions" onclick="event.preventDefault(); event.stopPropagation();">
+                        ${isLinkEditing ? `
+                            <div class="inline-link-edit" style="display:flex; flex-direction:column; gap:8px; width:90%; padding:10px; background:rgba(0,0,0,0.9); border:1px solid #444; border-radius:6px;">
+                                <input type="text" id="inline-link-input-${id}" class="inline-input" style="width:100%;" placeholder="https://..." value="${item.link || ''}">
+                                <div style="display:flex; gap:5px;">
+                                    <button class="inline-save-btn" style="padding:4px;" onclick="finishLinkEdit('${id}')">OK</button>
+                                    <button class="inline-cancel-btn" style="padding:4px;" onclick="cancelLinkEdit()">Esc</button>
+                                </div>
+                            </div>
+                        ` : `
+                            <span class="action-icon" title="Полный редактор" onclick="showEdit('${id}')">⚙</span>
+                            <span class="action-icon" title="${linkTitle}" onclick="${item.link ? `window.open('${item.link}', '_blank')` : `startLinkEdit('${id}')`}">${linkIcon}</span>
+                        `}
                     </div>
+                `;
+
+                if (isLinkEditing) {
+                    setTimeout(() => {
+                        const input = document.getElementById(`inline-link-input-${id}`);
+                        if (input) {
+                            input.focus();
+                            input.select();
+                            input.onkeydown = (e) => {
+                                if (e.key === 'Enter') finishLinkEdit(id);
+                                if (e.key === 'Escape') cancelLinkEdit();
+                            };
+                        }
+                    }, 0);
+                }
+
+                content += `
                     <div class="slot-content">
                         ${item.icon ? `<img src="${item.icon}" class="item-icon">` : '<div class="icon-placeholder"></div>'}
                         <div class="prices">
-                            ${hasPrice ? `
-                                ${renderPrice('MIN', item.min)}
-                                ${renderPrice('GOOD', item.good)}
-                                ${renderPrice('PERF', item.perfect)}
-                            ` : `<button class="inline-edit-btn" onclick="event.preventDefault(); event.stopPropagation(); showEdit('${id}')">ДОБАВИТЬ ЦЕНУ</button>`}
+                            ${renderPrice(id, 'min', item.min)}
+                            ${renderPrice(id, 'good', item.good)}
+                            ${renderPrice(id, 'perfect', item.perfect)}
                         </div>
                     </div>
                 `;
-            } else { content += `<span class="plus">+</span>`; }
+            } else {
+                content += `<span class="plus">+</span>`;
+            }
+
             slotEl.innerHTML = content;
             return slotEl;
         }
 
-        function renderPrice(label, value) {
-            if (!value && value !== "0") return '';
-            return `<div class="price-line"><span class="p-label">${label}</span><span class="p-value">${value} ${currencyIcon}</span></div>`;
+        function renderPrice(slotId, type, value) {
+            const fieldKey = `${slotId}-${type}`;
+            const isEditing = editingPriceField === fieldKey;
+            const label = type.toUpperCase();
+            const isEmpty = value === '' || value === undefined || value === null;
+            const displayVal = isEmpty ? '—' : value;
+
+            if (isEditing) {
+                setTimeout(() => {
+                    const input = document.getElementById(`inline-input-${fieldKey}`);
+                    if (input) {
+                        input.focus();
+                        input.select();
+                        input.onkeydown = (e) => {
+                            if (e.key === 'Enter') finishPriceEdit(slotId, type, input.value);
+                            if (e.key === 'Escape') cancelPriceEdit();
+                        };
+                        input.onblur = () => finishPriceEdit(slotId, type, input.value);
+                    }
+                }, 0);
+
+                return `
+                    <div class="price-line editing">
+                        <span class="p-label">${label}</span>
+                        <input type="text" id="inline-input-${fieldKey}" class="inline-input" style="height:22px; font-size:13px; text-align:center; background:#000; border:1px solid #444; color:#fff; width:60px;" value="${value || ''}">
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="price-line ${isEmpty ? 'empty' : ''}" onclick="startPriceEdit('${slotId}', '${type}')">
+                    <span class="p-label">${label}</span>
+                    <span class="p-value">${displayVal} ${currencyIcon}</span>
+                </div>
+            `;
+        }
+
+        async function startLinkEdit(id) {
+            let text = "";
+            try {
+                text = await navigator.clipboard.readText();
+                text = (text || "").trim();
+            } catch (err) {
+                console.warn('Clipboard read failed: ', err);
+            }
+
+            // If we found a valid link in clipboard, save it immediately and skip the input field
+            if (text && (text.startsWith('http') || text.includes('pathofexile.com/trade'))) {
+                items[id].link = text;
+                saveProfiles();
+                render();
+                showNotification('Link saved from clipboard!');
+                return; // Exit early, don't show the input editor
+            }
+
+            // Fallback: show the inline input field if clipboard was empty or invalid
+            editingLinkField = id;
+            render();
+        }
+
+        function cancelLinkEdit() {
+            editingLinkField = null;
+            render();
+        }
+
+        function finishLinkEdit(id) {
+            const input = document.getElementById(`inline-link-input-${id}`);
+            if (input) {
+                items[id].link = input.value.trim();
+                saveProfiles();
+                editingLinkField = null;
+                render();
+            }
+        }
+
+        function startPriceEdit(slotId, type) {
+            editingPriceField = `${slotId}-${type}`;
+            render();
+        }
+
+        function cancelPriceEdit() {
+            editingPriceField = null;
+            render();
+        }
+
+        function finishPriceEdit(slotId, type, newValue) {
+            if (editingPriceField) {
+                const itemField = type === 'perfect' ? 'perfect' : type;
+                items[slotId][itemField] = newValue.trim();
+                saveProfiles();
+                editingPriceField = null;
+                render();
+            }
         }
 
         function importCharacter() {
@@ -1797,38 +2045,60 @@
             const map = {
                 'helm': 'head', 'bodyarmour': 'body', 'gloves': 'gloves',
                 'boots': 'boots', 'amulet': 'amulet', 'ring': 'ring1',
-                'ring2': 'ring2', 'weapon': 'weapon1', 'offhand': 'offhand', 'belt': 'belt'
+                'ring2': 'ring2', 'weapon': 'weapon1', 'offhand': 'offhand', 'belt': 'belt',
+                // Also map our internal names to themselves so they pass through
+                'head': 'head', 'body': 'body', 'weapon1': 'weapon1', 'ring1': 'ring1'
             };
             let cC = 1, cB = 1, cO = 1, cF = 1;
 
             poeItems.forEach(pi => {
-                const invId = (pi.inventoryId || '').toLowerCase();
-                let sid = map[invId];
+                const rawInvId = (pi.inventoryId || '').toLowerCase();
+                let sid = map[rawInvId] || rawInvId;
 
-                // Special handling for Ring if multiple items have 'Ring' id
-                if (invId === 'ring' && target['ring1']) {
-                    sid = 'ring2';
-                }
+                // Special handling for poe.ninja generic IDs
+                if (rawInvId === 'ring' && target['ring1']) sid = 'ring2';
 
-                if (invId === 'flask' && cF <= 5) sid = `flask${cF++}`;
-                else if (invId === 'clusterjewel' && cC <= 18) sid = `cluster${cC++}`;
-                else if (invId === 'basejewel' && cB <= 18) sid = `basejewel${cB++}`;
-                else if (invId === 'otherjewel' && cO <= 18) sid = `otherjewel${cO++}`;
+                // If it's a generic category from poe.ninja, use counters
+                if (rawInvId === 'flask') sid = `flask${cF++}`;
+                else if (rawInvId === 'clusterjewel') sid = `cluster${cC++}`;
+                else if (rawInvId === 'basejewel') sid = `basejewel${cB++}`;
+                else if (rawInvId === 'otherjewel') sid = `otherjewel${cO++}`;
 
-                if (sid) {
+                // Validate that sid is something we actually track
+                const validStatic = ['head', 'body', 'gloves', 'boots', 'amulet', 'ring1', 'ring2', 'belt', 'weapon1', 'offhand'];
+                const isDynamic = sid.match(/^(flask|cluster|basejewel|otherjewel)\d+$/);
+
+                if (validStatic.includes(sid) || isDynamic) {
                     let name = pi.name || pi.typeLine;
                     if (name) name = name.replace(/<<set:[^>]+>>/g, '');
                     target[sid] = {
                         name: name || 'Unknown',
                         icon: pi.icon || '',
                         tooltip: pi.tooltip || '',
-                        min: '',
-                        good: '',
-                        perfect: '',
-                        link: ''
+                        min: pi.min || '',
+                        good: pi.good || '',
+                        perfect: pi.perfect || pi.perf || '',
+                        link: pi.link || ''
                     };
                 }
             });
+        }
+
+        function exportCurrentProfile() {
+            const profile = profiles.find(p => p.id === currentProfileId);
+            if (!profile) return showNotification('No current profile!');
+
+            const exportData = {
+                name: profile.name,
+                items: Object.keys(profile.items).map(sid => ({
+                    inventoryId: sid,
+                    ...profile.items[sid]
+                }))
+            };
+
+            navigator.clipboard.writeText(JSON.stringify(exportData, null, 2))
+                .then(() => showNotification('Profile with prices copied to clipboard!'))
+                .catch(err => alert('Export failed!'));
         }
 
         function showNotification(text) {
