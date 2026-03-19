@@ -679,6 +679,28 @@
             border-radius: 2px;
         }
 
+        /* Copyable lines effect */
+        ._item-body_1tb3h_1 div:not(:empty) {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            cursor: copy;
+            transition: background 0.2s;
+            margin: 1px auto;
+            max-width: 95%;
+        }
+
+        ._item-body_1tb3h_1 div:not(:empty):hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Ensure they stay centered since they are inline-block */
+        ._item-body_1tb3h_1 section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .ninja-tooltip-wrapper .shadow-xl {
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
         }
@@ -960,6 +982,14 @@
             }
         };
 
+        // Unpin and hide when clicking outside the tooltip
+        document.addEventListener('click', (e) => {
+            if (isTooltipPinned && !tooltipRoot.contains(e.target)) {
+                isTooltipPinned = false;
+                scheduleHide();
+            }
+        });
+
         function _cancelHide() {
             if (_tooltipHideTimer) {
                 clearTimeout(_tooltipHideTimer);
@@ -989,6 +1019,19 @@
             // Hover on tooltip itself keeps it alive
             tooltipRoot.onmouseenter = _cancelHide;
             tooltipRoot.onmouseleave = scheduleHide;
+
+            // Handle clicking lines inside the tooltip to copy text
+            tooltipRoot.onclick = function (e) {
+                const target = e.target.closest('div');
+                if (target && target.closest('._item-body_1tb3h_1')) {
+                    const text = target.innerText.trim();
+                    if (text) {
+                        navigator.clipboard.writeText(text).then(() => {
+                            showNotification(`Copied: "${text}"`);
+                        });
+                    }
+                }
+            };
 
             // Position anchored to the card slot element
             positionTooltip(slotEl);
