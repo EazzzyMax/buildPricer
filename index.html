@@ -1452,6 +1452,39 @@
     <div id="modal-container"></div>
 
     <script>
+        /* ---------------------------------------------------------
+           Compression Helpers
+           --------------------------------------------------------- */
+        async function compress(str) {
+            const stream = new Blob([encodeURIComponent(str)]).stream().pipeThrough(new CompressionStream('deflate'));
+            const buffer = await new Response(stream).arrayBuffer();
+            return bytesToBase64(new Uint8Array(buffer));
+        }
+
+        async function decompress(b64) {
+            const bytes = base64ToBytes(b64);
+            const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate'));
+            const text = await new Response(stream).text();
+            return decodeURIComponent(text);
+        }
+
+        function bytesToBase64(bytes) {
+            let binary = '';
+            for (let i = 0; i < bytes.byteLength; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return btoa(binary);
+        }
+
+        function base64ToBytes(b64) {
+            const binary = atob(b64);
+            const bytes = new Uint8Array(binary.length);
+            for (let i = 0; i < binary.length; i++) {
+                bytes[i] = binary.charCodeAt(i);
+            }
+            return bytes;
+        }
+
         const SLOTS = [
             { id: 'weapon1', label: 'Main Hand' },
             { id: 'head', label: 'Helmet' },
@@ -1833,9 +1866,10 @@
         function updateTotals() {
             let tMin = 0, tGood = 0, tPerf = 0;
             Object.values(items).forEach(it => {
-                const m = parseFloat(it.min) || 0;
-                const g = parseFloat(it.good) || m;
-                const p = parseFloat(it.perfect) || g;
+                const parsePrice = (v) => parseFloat(String(v || '').replace(',', '.')) || 0;
+                const m = parsePrice(it.min);
+                const g = parsePrice(it.good) || m;
+                const p = parsePrice(it.perfect) || g;
                 tMin += m;
                 tGood += g;
                 tPerf += p;
@@ -2008,22 +2042,48 @@
         function finishPriceEdit(slotId, type, newValue) {
             if (editingPriceField) {
                 const itemField = type === 'perfect' ? 'perfect' : type;
-                items[slotId][itemField] = newValue.trim();
+                // Normalize comma to dot for consistency
+                items[slotId][itemField] = newValue.trim().replace(',', '.');
                 saveProfiles();
                 editingPriceField = null;
                 render();
             }
         }
 
-        function importCharacter() {
-            const jsonText = document.getElementById('import-url').value;
+        async function importCharacter() {
+            let jsonText = document.getElementById('import-url').value.trim();
             if (!jsonText) return;
+
             try {
                 saveProfiles(); // Save the PREVIOUS current profile first
-                const data = JSON.parse(jsonText);
+                let data = null;
+
+                // Simple check for compressed format vs plain JSON
+                if (!jsonText.startsWith('{') && !jsonText.startsWith('[')) {
+                    try {
+                        const decompressed = await decompress(jsonText);
+                        const mini = JSON.parse(decompressed);
+
+                        // Map back from shortened keys (i: items array, n: profile name, etc)
+                        data = {
+                            name: mini.n || 'Imported Build',
+                            items: (mini.i || []).map(it => ({
+                                inventoryId: it.i, name: it.n, icon: it.c, tooltip: it.t,
+                                min: it.m, good: it.g, perfect: it.p, link: it.l
+                            }))
+                        };
+                    } catch (e) {
+                        console.error('Decompression failed, trying raw JSON:', e);
+                        data = JSON.parse(jsonText);
+                    }
+                } else {
+                    data = JSON.parse(jsonText);
+                }
+
+                if (!data) throw new Error('No data found');
+
                 const poeItems = data.items || [];
                 const newId = 'p_' + Date.now();
-                // Use the name from JSON if provided by the exporter script
                 const newName = data.name || `Build ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
                 const newItems = {};
                 processImportedData(poeItems, newItems);
@@ -2036,9 +2096,12 @@
                 loadCurrentProfile(); // this will set 'items' correctly to newItems
 
                 document.getElementById('import-url').value = '';
-                showNotification('Imported as new profile!');
+                showNotification('Imported successfully!');
                 toggleSidebar();
-            } catch (err) { alert('Import error! Check JSON.'); }
+            } catch (err) {
+                console.error(err);
+                alert('Import error! Check format.');
+            }
         }
 
         function processImportedData(poeItems, target) {
@@ -2084,21 +2147,40 @@
             });
         }
 
-        function exportCurrentProfile() {
+        async function exportCurrentProfile() {
             const profile = profiles.find(p => p.id === currentProfileId);
             if (!profile) return showNotification('No current profile!');
 
-            const exportData = {
-                name: profile.name,
-                items: Object.keys(profile.items).map(sid => ({
-                    inventoryId: sid,
-                    ...profile.items[sid]
-                }))
-            };
+            try {
+                // Shorten keys for maximum compression
+                const miniItems = Object.keys(profile.items).map(sid => {
+                    const it = profile.items[sid];
+                    return {
+                        i: sid, n: it.name, c: it.icon, t: it.tooltip,
+                        m: it.min, g: it.good, p: it.perfect, l: it.link
+                    };
+                });
 
-            navigator.clipboard.writeText(JSON.stringify(exportData, null, 2))
-                .then(() => showNotification('Profile with prices copied to clipboard!'))
-                .catch(err => alert('Export failed!'));
+                const data = { n: profile.name, i: miniItems };
+                const compressed = await compress(JSON.stringify(data));
+
+                navigator.clipboard.writeText(compressed).then(() => {
+                    showNotification('Copied COMPRESSED code!');
+                }).catch(err => { throw err; });
+            } catch (err) {
+                console.error('Compressed export failed:', err);
+                // Fallback to plain JSON
+                const exportData = {
+                    name: profile.name,
+                    items: Object.keys(profile.items).map(sid => ({
+                        inventoryId: sid,
+                        ...profile.items[sid]
+                    }))
+                };
+                navigator.clipboard.writeText(JSON.stringify(exportData)).then(() => {
+                    showNotification('Copied PLAIN JSON (compressed failed)');
+                });
+            }
         }
 
         function showNotification(text) {
